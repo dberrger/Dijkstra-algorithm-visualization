@@ -1,6 +1,7 @@
 package panels;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class GraphPanel {
@@ -8,10 +9,10 @@ public class GraphPanel {
     GraphPanel(){
         graphPane = new Pane();
         graphPane.setCenterShape(true);
-        graphPane.setMaxHeight(400);
-        graphPane.setMaxWidth(400);
-        graphPane.setLayoutX(50);
-        graphPane.setLayoutY(50);
+        graphPane.setMinSize(600,400);
+        graphPane.setMaxSize(700,500);
+        String style = "-fx-background-color: ghostwhite";
+        graphPane.setStyle(style);
     }
 
     public Pane getPanel(){
@@ -26,14 +27,14 @@ public class GraphPanel {
     private void getNodesXY(int nodeCount){
         for (int i=0;i<nodeCount;i++){
             float angle = (float) (2.0 * 3.1415926 * i / nodeCount);
-            float dx = (float) (150 * Math.cos(angle));
-            float dy = (float) (150 * Math.sin(angle));
+            float dx = (float) (200 * Math.cos(angle));
+            float dy = (float) (200 * Math.sin(angle));
             System.out.println("I " + i + "DX " + dx + " DY " + dy);
             drawCircle(dx,dy);
         }
     }
     private void drawCircle(float x, float y){
-        Circle c = new Circle(200+x,200+y,20);
+        Circle c = new Circle(300+x,250+y,20);
         c.fillProperty();
         graphPane.getChildren().addAll(c);
     }
