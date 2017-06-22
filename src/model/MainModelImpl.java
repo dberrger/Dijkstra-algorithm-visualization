@@ -9,13 +9,13 @@ public class MainModelImpl implements MainModel{
     }
     @Override
     public void onNextTurn() {
-        drawModel.drawGraph(10);
+        //drawModel.drawGraph(10);
         ObservableModelImpl.getInstance().setMessage("NEXT STEP");
     }
 
     @Override
     public void onPrevTurn() {
-        drawModel.drawGraph(9);
+        //drawModel.drawGraph(9);
         ObservableModelImpl.getInstance().setMessage("PREV STEP");
     }
 

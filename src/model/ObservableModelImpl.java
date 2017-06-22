@@ -44,6 +44,9 @@ public class ObservableModelImpl implements ObservableModel {
         this.message=message;
         notifyTextMessagePanel();
     }
+    public void setTurns(ArrayList<Graph> turns){
+        this.turns= turns;
+    }
     public Pane getGraph(){
         return graph;
     }

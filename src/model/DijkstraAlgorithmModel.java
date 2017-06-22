@@ -43,7 +43,7 @@ public class DijkstraAlgorithmModel {
             nodes.get(i).out = true;
             turns.add(new Graph(nodes, edges));
         }
-
+        ObservableModelImpl.getInstance().setTurns(turns);
     }
 
 
