@@ -1,41 +1,27 @@
 package panels;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import model.DrawModel;
 
 public class GraphPanel {
     private Pane graphPane;
+    public String style = "-fx-border-width: 1px;-fx-border-color: black; -fx-background-color: ghostwhite";
     GraphPanel(){
+        DrawModel.getInstance().registerObserver(this);
         graphPane = new Pane();
         graphPane.setCenterShape(true);
         graphPane.setMinSize(600,400);
         graphPane.setMaxSize(700,500);
-        String style = "-fx-background-color: ghostwhite";
         graphPane.setStyle(style);
     }
 
     public Pane getPanel(){
         return graphPane;
     }
-    public void clearGraph(){
+    public void update(){
+        System.out.println("UPDATE");
         graphPane.getChildren().clear();
+        graphPane.getChildren().addAll(DrawModel.getInstance().getGraphPane().getChildren());
     }
-    public void drawGraph(){
-        getNodesXY(10);
-    }
-    private void getNodesXY(int nodeCount){
-        for (int i=0;i<nodeCount;i++){
-            float angle = (float) (2.0 * 3.1415926 * i / nodeCount);
-            float dx = (float) (200 * Math.cos(angle));
-            float dy = (float) (200 * Math.sin(angle));
-            System.out.println("I " + i + "DX " + dx + " DY " + dy);
-            drawCircle(dx,dy);
-        }
-    }
-    private void drawCircle(float x, float y){
-        Circle c = new Circle(300+x,250+y,20);
-        c.fillProperty();
-        graphPane.getChildren().addAll(c);
-    }
+
 }

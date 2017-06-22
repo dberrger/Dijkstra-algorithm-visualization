@@ -2,6 +2,7 @@ package panels;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
+import model.DrawModel;
 
 
 public class MainPanel {
@@ -11,7 +12,6 @@ public class MainPanel {
         GraphPanel graphPanel = new GraphPanel();
         ControllerPanel controllerPanel = new ControllerPanel();
         TextMessagePanel textMessagePanel = new TextMessagePanel();
-        graphPanel.drawGraph();
         rootPane.setLeft(graphPanel.getPanel());
         rootPane.setRight(controllerPanel.getPanel());
         rootPane.setBottom(textMessagePanel.getPanel());

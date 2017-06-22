@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class DijkstraModel {
     private ArrayList<Graph> turns = new ArrayList<>();
+    private Graph initialGraph;
     private int currentTurn=0;
     private static DijkstraModel instance;
 
@@ -30,8 +31,13 @@ public class DijkstraModel {
     public void prevTurn(){
         currentTurn--;
     }
-    private void setTurns(ArrayList<Graph> turns){
+    public void setTurns(ArrayList<Graph> turns){
         this.turns=turns;
+    }
+    public void setInitialGraph(Graph g){
+        turns.clear();
+        currentTurn=0;
+        this.initialGraph=g;
     }
     public Graph getCurrentTurnGraph(){
         return turns.get(currentTurn);
