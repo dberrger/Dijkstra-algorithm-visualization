@@ -3,18 +3,25 @@ package model;
 import javafx.scene.layout.Pane;
 import panels.GraphPanel;
 import panels.TextMessagePanel;
+import structures.Graph;
+
+import java.util.ArrayList;
 
 public class ObservableModelImpl implements ObservableModel {
     private Pane graph;
     private String message;
     private GraphPanel graphPane;
     private TextMessagePanel textMessagePane;
+    private int currentTurn;
+    private ArrayList<Graph> turns;
 
 
     private static ObservableModelImpl instance;
 
     private ObservableModelImpl() {
         graph= new Pane();
+        currentTurn=0;
+        turns=new ArrayList<>();
         message="Deijkstra Algorithm Visualization";
     }
     public static ObservableModelImpl getInstance() {
@@ -42,6 +49,12 @@ public class ObservableModelImpl implements ObservableModel {
     }
     public String getMessage(){
         return message;
+    }
+    public Graph getCurrentTurnGraph(){
+        return turns.get(currentTurn);
+    }
+    public Graph getInitialGraph(){
+        return turns.get(0);
     }
     @Override
     public void registerTextPanel(TextMessagePanel textMessagePanel) {

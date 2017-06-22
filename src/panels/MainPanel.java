@@ -2,7 +2,6 @@ package panels;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
-import model.DrawModel;
 
 
 public class MainPanel {

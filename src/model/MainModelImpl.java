@@ -2,9 +2,9 @@ package model;
 
 public class MainModelImpl implements MainModel{
     private DijkstraModel dijkstraModel;
-    private DrawModel drawModel;
+    private DrawModelImpl drawModel;
     public MainModelImpl(){
-        drawModel = new DrawModel();
+        drawModel = new DrawModelImpl();
 
     }
     @Override
