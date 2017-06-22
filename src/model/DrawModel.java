@@ -5,43 +5,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import panels.GraphPanel;
-import structures.Graph;
+import javafx.scene.text.Text;
 
 public class DrawModel {
     private Pane graphPane;
-    private GraphPanel observer;
-    private static DrawModel instance;
 
-    private DrawModel() {
+    public DrawModel() {
         graphPane= new Pane();
 
     }
-    public static DrawModel getInstance() {
-        DrawModel localInstance = instance;
-        if (localInstance == null) {
-            synchronized (DrawModel.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new DrawModel();
-                }
-            }
-        }
-        return localInstance;
-    }
-
-    public Pane getGraphPane(){
-        return graphPane;
-    }
-    public void drawGraph(){
-        getNodesXY(10);
-        notifyObserver();
-    }
-    public void registerObserver(GraphPanel graphPanel){
-        this.observer=graphPanel;
-    }
-    private void notifyObserver(){
-        this.observer.update();
+    public void drawGraph(int x){
+        getNodesXY(x);
+        ObservableModelImpl.getInstance().setGraph(graphPane);
     }
     private void getNodesXY(int nodeCount){
         for (int i=0;i<nodeCount;i++){
@@ -56,12 +31,12 @@ public class DrawModel {
         Circle c = new Circle(300+x,250+y,20);
         c.setFill(Color.WHITE);
         c.setStroke(Color.BLACK);
-
         EventHandler<MouseEvent> eventHandler = e -> {
             System.out.println("Hello World") ;
             c.setFill(Color.DARKSLATEBLUE) ;
         };
+        Text t = new Text(100,200,"asdasd");
         c.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler) ;
-        graphPane.getChildren().addAll(c);
+        graphPane.getChildren().addAll(c,t);
     }
 }
