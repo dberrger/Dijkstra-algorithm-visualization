@@ -9,8 +9,7 @@ public class MainController {
         mainModel = new MainModelImpl();
     }
     public void addNode(){
-        mainModel.onNextTurn();
-        System.out.println("ADD NODE");
+        mainModel.addNode();
     }
     public void deleteNode(){
         mainModel.onPrevTurn();

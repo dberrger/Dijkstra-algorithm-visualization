@@ -5,7 +5,7 @@ import model.ObservableModelImpl;
 
 public class GraphPanel {
     private Pane graphPane;
-    public String style = "-fx-border-width: 1px;-fx-border-color: black; -fx-background-color: ghostwhite";
+    private String style = " -fx-border-radius: 7px;-fx-border-width: 2px;-fx-border-color: #434343; -fx-background-color: #edf7ff";
     GraphPanel(){
         ObservableModelImpl.getInstance().registerGraphPanel(this);
         graphPane = new Pane();

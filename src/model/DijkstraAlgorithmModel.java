@@ -12,7 +12,7 @@ public class DijkstraAlgorithmModel {
     public void setStartPoint(int startPoint){
         this.startPoint=startPoint;
     }
-    public void DijkstraAlgorithm(){
+    /*public void DijkstraAlgorithm(){
         ArrayList<Node> nodes = ObservableModelImpl.getInstance().getInitialGraph().nodes;
         ArrayList<Edge> edges = ObservableModelImpl.getInstance().getInitialGraph().edges;
         ArrayList<Graph> turns = new ArrayList<>();
@@ -44,7 +44,7 @@ public class DijkstraAlgorithmModel {
             turns.add(new Graph(nodes, edges));
         }
         ObservableModelImpl.getInstance().setTurns(turns);
-    }
+    }*/
 
 
     public ArrayList<Node> initializeNodesForAlgorithm(ArrayList<Node> nodes){

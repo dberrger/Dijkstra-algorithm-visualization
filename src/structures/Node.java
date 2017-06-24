@@ -10,9 +10,7 @@ public class Node {
     public boolean out;
     public boolean in;
     public ArrayList<Integer> prev;
-    public Node(float x, float y, int index){
-        this.x=x;
-        this.y=y;
+    public Node(int index){
         this.index=index;
     }
 }

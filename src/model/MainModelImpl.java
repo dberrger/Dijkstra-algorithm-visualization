@@ -1,11 +1,11 @@
 package model;
 
+import structures.Node;
+
 public class MainModelImpl implements MainModel{
-    private DijkstraModel dijkstraModel;
     private DrawModelImpl drawModel;
     public MainModelImpl(){
         drawModel = new DrawModelImpl();
-
     }
     @Override
     public void onNextTurn() {
@@ -26,7 +26,9 @@ public class MainModelImpl implements MainModel{
 
     @Override
     public void addNode() {
-
+        ObservableModelImpl.getInstance().addNodeToInitialGraph();
+        drawModel.getNodesXY();
+        drawModel.drawInitialGraph();
     }
 
     @Override

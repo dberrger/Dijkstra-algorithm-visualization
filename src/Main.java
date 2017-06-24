@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         MainPanel mainPanel = new MainPanel();
-        Scene scene = new Scene(mainPanel.getPanel(), 800, 600) ;
+        Scene scene = new Scene(mainPanel.getPanel(), 950, 600) ;
         primaryStage.setTitle("RABOTAEM") ;
         primaryStage.setScene(scene) ;
         primaryStage.show() ;

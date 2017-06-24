@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class DrawModelImpl implements DrawModel{
     private Pane graphPane;
     //TODO CONSTANTS
-    private int graphPlaceX=400;
-    private int graphPlaceY=10;
-    private int graphRadius=200;
+    private int graphPlaceX=300;
+    private int graphPlaceY=200;
+    private int graphRadius=150;
     private int nodeRadius=20;
     //TODO ARROW WITH LINES
     private int arrowRadius=5;
@@ -32,45 +32,28 @@ public class DrawModelImpl implements DrawModel{
         drawEdges(ObservableModelImpl.getInstance().getCurrentTurnGraph().edges);
         ObservableModelImpl.getInstance().setGraph(graphPane);
     }
-
+    public void drawInitialGraph(){
+        drawNodes(ObservableModelImpl.getInstance().getInitialGraph().nodes);
+        drawEdges(ObservableModelImpl.getInstance().getInitialGraph().edges);
+        ObservableModelImpl.getInstance().setGraph(graphPane);
+    }
     @Override
-    public void getNodesXY(int nodeCount) {
-        ArrayList<Node> nodes = new ArrayList<>();
-        for (int i = 0; i < nodeCount; i++)
+    public void getNodesXY() {
+        for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++)
         {
-            float angle = (float) (2.0 * 3.1415926 * i / nodeCount);
+            float angle = (float) (2.0 * 3.1415926 * i / ObservableModelImpl.getInstance().getInitialGraph().nodes.size());
             float dx = (float) (graphRadius * Math.cos(angle));
             float dy = (float) (graphRadius * Math.sin(angle));
-            nodes.add(new Node(graphPlaceX+dx, graphPlaceY+dy,i));
-        }
-    }
+            ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).x=graphPlaceX+dx;
+            ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).y=graphPlaceY+dy;
 
-    private void getNodes(int nodeCount){
-        for (int i=0;i<nodeCount;i++){
-            float angle = (float) (2.0 * 3.1415926 * i / nodeCount);
-            float dx = (float) (graphRadius * Math.cos(angle));
-            float dy = (float) (graphRadius * Math.sin(angle));
-            System.out.println("I " + i + "DX " + dx + " DY " + dy);
-            drawCircle(dx,dy);
         }
     }
-    private void drawCircle(float x, float y){
-        Circle c = new Circle(300+x,250+y,20);
-        c.setFill(Color.WHITE);
-        c.setStroke(Color.BLACK);
-        EventHandler<MouseEvent> eventHandler = e -> {
-            System.out.println("Hello World") ;
-            c.setFill(Color.DARKSLATEBLUE) ;
-        };
-        Text t = new Text(100,200,"asdasd");
-        c.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler) ;
-        graphPane.getChildren().addAll(c,t);
+    private void drawNodeIndex(int index, double x, double y){
+        Text nodeIndex = new Text(x-4, y+2, String.valueOf(index));
+        graphPane.getChildren().add(nodeIndex);
     }
-    private void drawNodeIndex(Node node){
-        Text index = new Text(node.x - (nodeRadius/4), node.y - (nodeRadius/3), String.valueOf(node.index));
-        graphPane.getChildren().add(index);
-    }
-    private void drawNodeWeight(Node node) {
+    private void drawNodeWeight(Node node, double x, double y) {
         float b = graphPlaceX - node.x;
         float a = graphPlaceY - node.y;
         float c = (float) Math.sqrt(a*a + b*b);
@@ -97,12 +80,13 @@ public class DrawModelImpl implements DrawModel{
             c.setStroke(Color.GREEN);
         }
         graphPane.getChildren().add(c);
+        drawNodeIndex(node.index, c.getCenterX(), c.getCenterY());
     }
     private void drawNodes(ArrayList<Node> nodes){
         for (Node node: nodes){
             drawNodeCircle(node);
-            drawNodeIndex(node);
-            drawNodeWeight(node);
+            //drawNodeIndex(node);
+            //drawNodeWeight(node);
         }
     }
     private void drawEdges(ArrayList<Edge> edges){

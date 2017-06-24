@@ -3,7 +3,9 @@ package model;
 import javafx.scene.layout.Pane;
 import panels.GraphPanel;
 import panels.TextMessagePanel;
+import structures.Edge;
 import structures.Graph;
+import structures.Node;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class ObservableModelImpl implements ObservableModel {
     private GraphPanel graphPane;
     private TextMessagePanel textMessagePane;
     private int currentTurn;
+    private Graph initialGraph= new Graph();
     private ArrayList<Graph> turns;
 
 
@@ -44,6 +47,19 @@ public class ObservableModelImpl implements ObservableModel {
         this.message=message;
         notifyTextMessagePanel();
     }
+    public void redraw(){
+        notifyGraphPanel();
+    }
+    public void addNodeToInitialGraph(){
+        initialGraph.nodes.add(new Node(initialGraph.nodes.size()+1));
+    }
+    public void addEdgeToInitialGraph(int first, int second, int weight){
+        initialGraph.edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
+    }
+    public void clearInitialGraph(){
+        initialGraph.nodes.clear();
+        initialGraph.edges.clear();
+    }
     public void setTurns(ArrayList<Graph> turns){
         this.turns= turns;
     }
@@ -57,8 +73,9 @@ public class ObservableModelImpl implements ObservableModel {
         return turns.get(currentTurn);
     }
     public Graph getInitialGraph(){
-        return turns.get(0);
+        return initialGraph;
     }
+
     @Override
     public void registerTextPanel(TextMessagePanel textMessagePanel) {
         this.textMessagePane=textMessagePanel;

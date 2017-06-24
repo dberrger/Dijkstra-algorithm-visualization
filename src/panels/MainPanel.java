@@ -14,8 +14,9 @@ public class MainPanel {
         rootPane.setLeft(graphPanel.getPanel());
         rootPane.setRight(controllerPanel.getPanel());
         rootPane.setBottom(textMessagePanel.getPanel());
-        rootPane.setMargin(controllerPanel.getPanel(),new Insets(50.0,100.0,0.0,0.0));
+        rootPane.setMargin(controllerPanel.getPanel(),new Insets(50.0,100.0,0.0,15.0));
         rootPane.setMargin(rootPane.getBottom(),new Insets(50.0,0.0,50.0,100.0));
+        rootPane.setPadding(new Insets(10,10,10,10));
         textMessagePanel.setMessage("TEST TEXT AREA");
     }
     public BorderPane getPanel(){
