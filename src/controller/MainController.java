@@ -21,10 +21,10 @@ public class MainController {
     public void runAlgorithm(){
         mainModel.runAlgorithm();
     }
-    public void nextStep(){
-        System.out.println("NEXT STEP");
+    public void nextTurn(){
+        mainModel.onNextTurn();
     }
-    public void prevStep(){
-        System.out.println("PREV STEP");
+    public void prevTurn(){
+        mainModel.onPrevTurn();
     }
 }

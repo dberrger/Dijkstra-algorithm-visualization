@@ -1,11 +1,8 @@
 package model;
 
-import structures.Edge;
 import structures.Graph;
 import structures.Node;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class DijkstraAlgorithmModel {
     private int startPoint;
@@ -15,7 +12,7 @@ public class DijkstraAlgorithmModel {
     public void DijkstraAlgorithm(){
         Graph graph = ObservableModelImpl.getInstance().getInitialGraph();
         ArrayList<Graph> turns = new ArrayList<>();
-        graph.nodes = initializeNodesForAlgorithm(graph.nodes);
+        initializeNodesForAlgorithm();
         turns.add(graph);
         for (int count = 0; count < graph.nodes.size() - 1; count++) {
             int i = minDistance(graph.nodes);
@@ -46,18 +43,17 @@ public class DijkstraAlgorithmModel {
     }
 
 
-    public ArrayList<Node> initializeNodesForAlgorithm(ArrayList<Node> nodes){
-        for (int i = 0; i < nodes.size(); i++) {
-            nodes.get(i).out = false;
-            nodes.get(i).in = false;
-            if (nodes.get(i).index == startPoint) {
-                nodes.get(i).dist = 0;
+    public void initializeNodesForAlgorithm(){
+        for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++) {
+            ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).out = false;
+            ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).in = false;
+            if (ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).index == startPoint) {
+                ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).dist = 0;
             }
             else {
-                nodes.get(i).dist = Integer.MAX_VALUE;
+                ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).dist = Integer.MAX_VALUE;
             }
         }
-        return nodes;
     }
     private int minDistance(ArrayList<Node> nodes){
         int min = Integer.MAX_VALUE;
@@ -68,8 +64,5 @@ public class DijkstraAlgorithmModel {
                 index = i;
             }
         return index;
-    }
-    public void initializeEdgesForAlgorithm(){
-
     }
 }

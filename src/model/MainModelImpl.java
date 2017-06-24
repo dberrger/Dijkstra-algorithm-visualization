@@ -2,6 +2,8 @@ package model;
 
 import structures.Node;
 
+import java.util.ArrayList;
+
 public class MainModelImpl implements MainModel{
     private DrawModelImpl drawModel;
     private DijkstraAlgorithmModel dijkstraAlgorithmModel;
@@ -11,14 +13,14 @@ public class MainModelImpl implements MainModel{
     }
     @Override
     public void onNextTurn() {
-        //drawModel.drawGraph(10);
-        ObservableModelImpl.getInstance().setMessage("NEXT STEP");
+        ObservableModelImpl.getInstance().nextTurn();
+        drawModel.drawGraph();
     }
 
     @Override
     public void onPrevTurn() {
-        //drawModel.drawGraph(9);
-        ObservableModelImpl.getInstance().setMessage("PREV STEP");
+        ObservableModelImpl.getInstance().prevTurn();
+        drawModel.drawGraph();
     }
 
     @Override
@@ -46,8 +48,13 @@ public class MainModelImpl implements MainModel{
 
     @Override
     public void runAlgorithm() {
+        dijkstraAlgorithmModel.setStartPoint(0);
         dijkstraAlgorithmModel.DijkstraAlgorithm();
         System.out.println(ObservableModelImpl.getInstance().getTurns().size());
-
+        int size = ObservableModelImpl.getInstance().getTurns().size();
+        ArrayList<Node> lastNodes = ObservableModelImpl.getInstance().getTurns().get(size-1).nodes;
+        for (Node n : lastNodes){
+            System.out.println("DIST TO " + n.index + " " + n.dist);
+        }
     }
 }

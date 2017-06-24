@@ -53,7 +53,7 @@ public class DrawModelImpl implements DrawModel{
         Text nodeIndex = new Text(x-4, y+2, String.valueOf(index));
         graphPane.getChildren().add(nodeIndex);
     }
-    private void drawNodeWeight(Node node, double x, double y) {
+    private void drawNodeWeight(Node node) {
         float b = graphPlaceX - node.x;
         float a = graphPlaceY - node.y;
         float c = (float) Math.sqrt(a*a + b*b);
@@ -85,8 +85,7 @@ public class DrawModelImpl implements DrawModel{
     private void drawNodes(ArrayList<Node> nodes){
         for (Node node: nodes){
             drawNodeCircle(node);
-            //drawNodeIndex(node);
-            //drawNodeWeight(node);
+            drawNodeWeight(node);
         }
     }
     private void drawEdges(ArrayList<Edge> edges){

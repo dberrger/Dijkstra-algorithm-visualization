@@ -14,7 +14,7 @@ public class ObservableModelImpl implements ObservableModel {
     private String message;
     private GraphPanel graphPane;
     private TextMessagePanel textMessagePane;
-    private int currentTurn;
+    private int currentTurn=0;
     private Graph initialGraph= new Graph();
     private ArrayList<Graph> turns;
 
@@ -78,7 +78,12 @@ public class ObservableModelImpl implements ObservableModel {
     public Graph getInitialGraph(){
         return initialGraph;
     }
-
+    public void nextTurn(){
+        currentTurn++;
+    }
+    public void prevTurn(){
+        currentTurn--;
+    }
     @Override
     public void registerTextPanel(TextMessagePanel textMessagePanel) {
         this.textMessagePane=textMessagePanel;

@@ -112,9 +112,10 @@ public class ControllerPanel {
 
         });
         button4.setOnAction(e-> EditEdge());
-
         button3.setOnAction(e-> DeleteNode());
         button8.setOnAction(e-> mainController.runAlgorithm());
+        button9.setOnAction(e->mainController.nextTurn());
+        button10.setOnAction(e->mainController.prevTurn());
         controllerPane.getChildren().addAll(ButtonGroup1,ButtonGroup2,ButtonGroup3);
     }
 
