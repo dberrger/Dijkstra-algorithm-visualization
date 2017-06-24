@@ -5,7 +5,7 @@ public interface MainModel {
     void onPrevTurn();
     void deleteNode();
     void addNode();
-    void addEdge();
+    void addEdge(int first, int second, int weight);
     void deleteEdge();
     void runAlgorithm();
 }

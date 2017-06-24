@@ -46,9 +46,9 @@ public class ControllerPanel {
         Button button5 = new Button("Exit ...");
         Button button6 = new Button("Description ");
         Button button7 = new Button("NEXT");
-        Button button8 = new Button("PREV");
-        Button button9 = new Button("TO END");
-        Button button10 = new Button("TO END");
+        Button button8 = new Button("RUN ALGORITHM");
+        Button button9 = new Button("NEXT STEP");
+        Button button10 = new Button("PREV STEP");
         Button button11 = new Button("TO END");
 
         //TODO POLNOSTIYU PEREDELAT VSE
@@ -93,17 +93,10 @@ public class ControllerPanel {
 
 
 
-        button0.setOnAction(E->{
+        button0.setOnAction(e-> AddingEdge());
 
-            AddingEdge();
-        });
-
-        button5.setOnAction(E-> {
-
-            System.exit(0);
-
-        });
-
+        button5.setOnAction(e-> System.exit(0));
+        button1.setOnAction(e->mainController.addNode());
         button6.setOnAction(E-> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Dijkstra Description");
@@ -121,9 +114,7 @@ public class ControllerPanel {
         button4.setOnAction(e-> EditEdge());
 
         button3.setOnAction(e-> DeleteNode());
-        button1.setOnAction(e-> mainController.addNode());
-
-
+        button8.setOnAction(e-> mainController.runAlgorithm());
         controllerPane.getChildren().addAll(ButtonGroup1,ButtonGroup2,ButtonGroup3);
     }
 
@@ -203,6 +194,7 @@ public class ControllerPanel {
         secondStage.setTitle("hui");
         secondStage.setScene(secondScene);
         secondStage.show();
+        buttonOK.setOnAction(e->mainController.addEdge(Integer.parseInt(pole1.getText()), Integer.parseInt(pole2.getText()), Integer.parseInt(pole3.getText())));
 
     }
     public VBox getPanel(){

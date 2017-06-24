@@ -51,7 +51,7 @@ public class ObservableModelImpl implements ObservableModel {
         notifyGraphPanel();
     }
     public void addNodeToInitialGraph(){
-        initialGraph.nodes.add(new Node(initialGraph.nodes.size()+1));
+        initialGraph.nodes.add(new Node(initialGraph.nodes.size()));
     }
     public void addEdgeToInitialGraph(int first, int second, int weight){
         initialGraph.edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
@@ -59,6 +59,9 @@ public class ObservableModelImpl implements ObservableModel {
     public void clearInitialGraph(){
         initialGraph.nodes.clear();
         initialGraph.edges.clear();
+    }
+    public ArrayList<Graph> getTurns(){
+        return turns;
     }
     public void setTurns(ArrayList<Graph> turns){
         this.turns= turns;

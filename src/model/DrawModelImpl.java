@@ -105,8 +105,13 @@ public class DrawModelImpl implements DrawModel{
                 edge.first.y + (nodeRadius+2*arrowRadius)*sina,
                 edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
                 edge.second.y - (nodeRadius+2*arrowRadius)*sina);
-        line.setStrokeWidth(2);
-        graphPane.getChildren().add(line);
+        //TODO REPLACE WITH ARROW
+
+        Circle arrow = new Circle(edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
+                edge.second.y - (nodeRadius+2*arrowRadius)*sina,5);
+        arrow.setFill(Color.WHITE);
+        arrow.setStroke(Color.BLACK);
+        graphPane.getChildren().addAll(line,arrow);
     }
     private void drawEdgeWeight(Edge edge){
         float x1 = edge.first.x;

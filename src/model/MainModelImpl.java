@@ -4,8 +4,10 @@ import structures.Node;
 
 public class MainModelImpl implements MainModel{
     private DrawModelImpl drawModel;
+    private DijkstraAlgorithmModel dijkstraAlgorithmModel;
     public MainModelImpl(){
         drawModel = new DrawModelImpl();
+        dijkstraAlgorithmModel= new DijkstraAlgorithmModel();
     }
     @Override
     public void onNextTurn() {
@@ -32,8 +34,9 @@ public class MainModelImpl implements MainModel{
     }
 
     @Override
-    public void addEdge() {
-
+    public void addEdge(int first, int second, int weight) {
+        ObservableModelImpl.getInstance().addEdgeToInitialGraph(first,second,weight);
+        drawModel.drawInitialGraph();
     }
 
     @Override
@@ -43,6 +46,8 @@ public class MainModelImpl implements MainModel{
 
     @Override
     public void runAlgorithm() {
+        dijkstraAlgorithmModel.DijkstraAlgorithm();
+        System.out.println(ObservableModelImpl.getInstance().getTurns().size());
 
     }
 }

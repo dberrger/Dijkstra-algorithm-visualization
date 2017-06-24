@@ -12,39 +12,38 @@ public class DijkstraAlgorithmModel {
     public void setStartPoint(int startPoint){
         this.startPoint=startPoint;
     }
-    /*public void DijkstraAlgorithm(){
-        ArrayList<Node> nodes = ObservableModelImpl.getInstance().getInitialGraph().nodes;
-        ArrayList<Edge> edges = ObservableModelImpl.getInstance().getInitialGraph().edges;
+    public void DijkstraAlgorithm(){
+        Graph graph = ObservableModelImpl.getInstance().getInitialGraph();
         ArrayList<Graph> turns = new ArrayList<>();
-        nodes = initializeNodesForAlgorithm(nodes);
-        turns.add(new Graph(nodes,edges));
-        for (int count = 0; count < nodes.size() - 1; count++) {
-            int i = minDistance(nodes);
-            nodes.get(i).in = true;
-            turns.add(new Graph(nodes,edges));
-            for (int j = 0; j < edges.size(); j++) {
-                if (i == edges.get(j).first.index) {
-                    edges.get(j).color = true;
-                    if (!nodes.get(edges.get(j).second.index).out && nodes.get(i).dist != Integer.MAX_VALUE) {
-                        if (nodes.get(i).dist + edges.get(j).weight == nodes.get(edges.get(j).second.index).dist) {
-                            nodes.get(edges.get(j).second.index).prev.add(i);
+        graph.nodes = initializeNodesForAlgorithm(graph.nodes);
+        turns.add(graph);
+        for (int count = 0; count < graph.nodes.size() - 1; count++) {
+            int i = minDistance(graph.nodes);
+            graph.nodes.get(i).in = true;
+            turns.add(graph);
+            for (int j = 0; j < graph.edges.size(); j++) {
+                if (i == graph.edges.get(j).first.index) {
+                    graph.edges.get(j).color = true;
+                    if (!graph.nodes.get(graph.edges.get(j).second.index).out && graph.nodes.get(i).dist != Integer.MAX_VALUE) {
+                        if (graph.nodes.get(i).dist + graph.edges.get(j).weight == graph.nodes.get(graph.edges.get(j).second.index).dist) {
+                            graph.nodes.get(graph.edges.get(j).second.index).prev.add(i);
                         }
-                        if (nodes.get(i).dist + edges.get(j).weight < nodes.get(edges.get(j).second.index).dist) {
-                            nodes.get(edges.get(j).second.index).dist = nodes.get(i).dist + edges.get(j).weight;
-                            nodes.get(edges.get(j).second.index).prev.clear();
-                            nodes.get(edges.get(j).second.index).prev.add(i);
+                        if (graph.nodes.get(i).dist + graph.edges.get(j).weight < graph.nodes.get(graph.edges.get(j).second.index).dist) {
+                            graph.nodes.get(graph.edges.get(j).second.index).dist = graph.nodes.get(i).dist + graph.edges.get(j).weight;
+                            graph.nodes.get(graph.edges.get(j).second.index).prev.clear();
+                            graph.nodes.get(graph.edges.get(j).second.index).prev.add(i);
                         }
                     }
-                    turns.add(new Graph(nodes,edges));
-                    edges.get(j).color = false;
+                    turns.add(graph);
+                    graph.edges.get(j).color = false;
                 }
             }
-            nodes.get(i).in = false;
-            nodes.get(i).out = true;
-            turns.add(new Graph(nodes, edges));
+            graph.nodes.get(i).in = false;
+            graph.nodes.get(i).out = true;
+            turns.add(graph);
         }
         ObservableModelImpl.getInstance().setTurns(turns);
-    }*/
+    }
 
 
     public ArrayList<Node> initializeNodesForAlgorithm(ArrayList<Node> nodes){

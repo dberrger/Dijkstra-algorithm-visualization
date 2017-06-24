@@ -11,9 +11,15 @@ public class MainController {
     public void addNode(){
         mainModel.addNode();
     }
+    public void addEdge(int first, int second, int weight){
+        mainModel.addEdge(first,second,weight);
+    }
     public void deleteNode(){
         mainModel.onPrevTurn();
         System.out.println("DELETENODE");
+    }
+    public void runAlgorithm(){
+        mainModel.runAlgorithm();
     }
     public void nextStep(){
         System.out.println("NEXT STEP");

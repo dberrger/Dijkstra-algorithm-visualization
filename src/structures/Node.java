@@ -11,6 +11,6 @@ public class Node {
     public boolean in;
     public ArrayList<Integer> prev;
     public Node(int index){
-        this.index=index;
+        this.index=index; prev = new ArrayList<>();
     }
 }
