@@ -6,18 +6,23 @@ import java.util.ArrayList;
 
 public class DijkstraAlgorithmModel {
     private int startPoint;
+    private CopyGraphModel copyGraphModel;
     public void setStartPoint(int startPoint){
         this.startPoint=startPoint;
+    }
+    public DijkstraAlgorithmModel(){
+        copyGraphModel= new CopyGraphModel();
     }
     public void DijkstraAlgorithm(){
         Graph graph = ObservableModelImpl.getInstance().getInitialGraph();
         ArrayList<Graph> turns = new ArrayList<>();
         initializeNodesForAlgorithm();
-        turns.add(graph);
+        turns.add(copyGraphModel.graphCopy(graph));
         for (int count = 0; count < graph.nodes.size() - 1; count++) {
             int i = minDistance(graph.nodes);
             graph.nodes.get(i).in = true;
-            turns.add(graph);
+            turns.add(copyGraphModel.graphCopy(graph));
+            printGraph(graph);
             for (int j = 0; j < graph.edges.size(); j++) {
                 if (i == graph.edges.get(j).first.index) {
                     graph.edges.get(j).color = true;
@@ -31,16 +36,18 @@ public class DijkstraAlgorithmModel {
                             graph.nodes.get(graph.edges.get(j).second.index).prev.add(i);
                         }
                     }
-                    turns.add(graph);
+                    turns.add(copyGraphModel.graphCopy(graph));
+                    printGraph(graph);
                     graph.edges.get(j).color = false;
                 }
+                graph.nodes.get(i).in = false;
+                graph.nodes.get(i).out = true;
+                turns.add(copyGraphModel.graphCopy(graph));
             }
-            graph.nodes.get(i).in = false;
-            graph.nodes.get(i).out = true;
-            turns.add(graph);
+            ObservableModelImpl.getInstance().setTurns(turns);
         }
-        ObservableModelImpl.getInstance().setTurns(turns);
     }
+
 
 
     public void initializeNodesForAlgorithm(){
@@ -64,5 +71,10 @@ public class DijkstraAlgorithmModel {
                 index = i;
             }
         return index;
+    }
+    private void printGraph(Graph g){
+        for (Node n : g.nodes){
+            System.out.println(n.dist);
+        }
     }
 }

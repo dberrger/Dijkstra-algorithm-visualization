@@ -47,9 +47,6 @@ public class ObservableModelImpl implements ObservableModel {
         this.message=message;
         notifyTextMessagePanel();
     }
-    public void redraw(){
-        notifyGraphPanel();
-    }
     public void addNodeToInitialGraph(){
         initialGraph.nodes.add(new Node(initialGraph.nodes.size()));
     }
@@ -79,11 +76,16 @@ public class ObservableModelImpl implements ObservableModel {
         return initialGraph;
     }
     public void nextTurn(){
-        currentTurn++;
+        if (currentTurn+1<turns.size()) {
+            currentTurn++;
+        }
     }
     public void prevTurn(){
-        currentTurn--;
+        if (currentTurn-1>0) {
+            currentTurn--;
+        }
     }
+    public int getTurn(){return currentTurn;}
     @Override
     public void registerTextPanel(TextMessagePanel textMessagePanel) {
         this.textMessagePane=textMessagePanel;

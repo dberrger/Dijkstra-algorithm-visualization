@@ -15,12 +15,14 @@ public class MainModelImpl implements MainModel{
     public void onNextTurn() {
         ObservableModelImpl.getInstance().nextTurn();
         drawModel.drawGraph();
+        ObservableModelImpl.getInstance().setMessage("NEXT TURN");
     }
 
     @Override
     public void onPrevTurn() {
         ObservableModelImpl.getInstance().prevTurn();
         drawModel.drawGraph();
+        ObservableModelImpl.getInstance().setMessage("PREV TURN");
     }
 
     @Override
@@ -53,8 +55,5 @@ public class MainModelImpl implements MainModel{
         System.out.println(ObservableModelImpl.getInstance().getTurns().size());
         int size = ObservableModelImpl.getInstance().getTurns().size();
         ArrayList<Node> lastNodes = ObservableModelImpl.getInstance().getTurns().get(size-1).nodes;
-        for (Node n : lastNodes){
-            System.out.println("DIST TO " + n.index + " " + n.dist);
-        }
     }
 }

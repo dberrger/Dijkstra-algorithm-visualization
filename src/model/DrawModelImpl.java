@@ -8,6 +8,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import structures.Edge;
+import structures.Graph;
 import structures.Node;
 
 import java.util.ArrayList;
@@ -104,6 +105,10 @@ public class DrawModelImpl implements DrawModel{
                 edge.first.y + (nodeRadius+2*arrowRadius)*sina,
                 edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
                 edge.second.y - (nodeRadius+2*arrowRadius)*sina);
+
+        if (edge.color){
+            line.setStroke(Color.GREEN);
+        }
         //TODO REPLACE WITH ARROW
 
         Circle arrow = new Circle(edge.second.x - (nodeRadius+2*arrowRadius)*cosa,

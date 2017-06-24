@@ -19,7 +19,6 @@ public class GraphPanel {
         return graphPane;
     }
     public void update(){
-        System.out.println("UPDATE");
         graphPane.getChildren().clear();
         graphPane.getChildren().addAll(ObservableModelImpl.getInstance().getGraph().getChildren());
     }

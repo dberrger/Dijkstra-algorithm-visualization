@@ -4,6 +4,7 @@ import model.MainModel;
 import model.MainModelImpl;
 
 public class MainController {
+    //TODO DELETE THIS
     private MainModel mainModel;
     public MainController(){
         mainModel = new MainModelImpl();
@@ -16,7 +17,6 @@ public class MainController {
     }
     public void deleteNode(){
         mainModel.onPrevTurn();
-        System.out.println("DELETENODE");
     }
     public void runAlgorithm(){
         mainModel.runAlgorithm();
