@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import structures.Edge;
 import structures.Node;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class DrawModelImpl implements DrawModel{
@@ -26,8 +27,8 @@ public class DrawModelImpl implements DrawModel{
     }
     @Override
     public void drawGraph() {
-        drawNodes(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
         drawEdges(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
+        drawNodes(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
         ObservableModelImpl.getInstance().setGraph(graphPane);
     }
     public void drawInitialGraph(){
@@ -69,14 +70,16 @@ public class DrawModelImpl implements DrawModel{
         graphPane.getChildren().add(nodeWeight);
     }
     private void drawNodeCircle(Node node){
-        Circle c= new Circle(node.x,node.y,nodeRadius);
+        Circle c = new Circle(node.x,node.y,nodeRadius);
         c.setFill(Color.WHITE);
         c.setStroke(Color.BLACK);
         if (node.out){
             c.setStroke(Color.RED);
+            c.setStrokeWidth(3);
         }
         if (node.in){
             c.setStroke(Color.GREEN);
+            c.setStrokeWidth(3);
         }
         graphPane.getChildren().add(c);
         drawNodeIndex(node.index, c.getCenterX(), c.getCenterY());
@@ -101,21 +104,42 @@ public class DrawModelImpl implements DrawModel{
         float c = (float) Math.sqrt(a*a + b*b);
         float sina = a / c;
         float cosa = b / c;
-        Line line = new Line(edge.first.x + (nodeRadius+2*arrowRadius)*cosa,
-                edge.first.y + (nodeRadius+2*arrowRadius)*sina,
-                edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
-                edge.second.y - (nodeRadius+2*arrowRadius)*sina);
+        Line line = new Line(edge.first.x + nodeRadius*cosa,
+                edge.first.y + nodeRadius*sina,
+                edge.second.x - nodeRadius*cosa,
+                edge.second.y - nodeRadius*sina);
         if (edge.color){
-            System.out.println("COLOR EDGE " + edge.first.index + " " + edge.second.index + " " + edge.weight);
             line.setStroke(Color.GREEN);
+            line.setStrokeWidth(3);
         }
         //TODO REPLACE WITH ARROW
 
-        Circle arrow = new Circle(edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
-                edge.second.y - (nodeRadius+2*arrowRadius)*sina,5);
-        arrow.setFill(Color.WHITE);
-        arrow.setStroke(Color.BLACK);
-        graphPane.getChildren().addAll(line,arrow);
+        //стрелочки
+        double ostr = 0.25; //острота стрелки
+        double petal = c / 15; //длина лепестков
+        double angle = Math.atan(a/b); //угол стрелки
+        double coordinateX = edge.second.x - nodeRadius*cosa;
+        double coordinateY = edge.second.y - nodeRadius*sina;
+
+        int i = 1;
+        if (edge.second.x < edge.first.x) {
+            i = -1;
+        }
+        Line line1 = new Line(coordinateX, coordinateY,
+                coordinateX - i*petal*Math.cos(angle-ostr),
+                coordinateY - i*petal*Math.sin(angle-ostr));
+        Line line2 = new Line (coordinateX, coordinateY,
+                coordinateX - i*petal*Math.cos(angle+ostr),
+                coordinateY - i*petal*Math.sin(angle+ostr));
+        if (edge.color){
+            //System.out.println("COLOR EDGE " + edge.first.index + " " + edge.second.index + " " + edge.weight);
+            line1.setStroke(Color.GREEN);
+            line1.setStrokeWidth(3);
+            line2.setStroke(Color.GREEN);
+            line2.setStrokeWidth(3);
+        }
+
+        graphPane.getChildren().addAll(line, line1, line2);
     }
     private void drawEdgeWeight(Edge edge){
         float x1 = edge.first.x;
@@ -124,7 +148,12 @@ public class DrawModelImpl implements DrawModel{
         float y2 = edge.second.y;
         float srx = (x1 + x2) / 2;
         float sry = (y1 + y2) / 2;
-        Text edgeWeight = new Text(srx,sry,String.valueOf(edge.weight));
-        graphPane.getChildren().add(edgeWeight);
+
+        Circle c = new Circle(srx, sry, 15);
+        c.setFill(Color.LIGHTGRAY);
+        c.setStroke(Color.BLACK);
+
+        Text edgeWeight = new Text(srx-5,sry+5,String.valueOf(edge.weight));
+        graphPane.getChildren().addAll(c, edgeWeight);
     }
 }
