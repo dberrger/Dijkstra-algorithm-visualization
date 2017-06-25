@@ -17,6 +17,10 @@ public class DijkstraAlgorithmModel {
     public void DijkstraAlgorithm(){
         shortestPaths="";
         Graph graph = copyGraphModel.graphCopy(ObservableModelImpl.getInstance().getInitialGraph());
+        Graph graph1 = ObservableModelImpl.getInstance().getInitialGraph();
+        if (graph.hashCode() == graph1.hashCode()){
+            System.out.println("PIZDEC");
+        }
         ArrayList<Graph> turns = new ArrayList<>();
         initializeNodesForAlgorithm();
         turns.add(copyGraphModel.graphCopy(graph));

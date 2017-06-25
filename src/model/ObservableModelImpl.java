@@ -47,6 +47,9 @@ public class ObservableModelImpl implements ObservableModel {
         this.graph=graph;
         notifyGraphPanel();
     }
+    public void setInitialGraph(Graph graph){
+        this.initialGraph=graph;
+    }
     public void setMessage(String message){
         this.message=message;
         notifyTextMessagePanel();

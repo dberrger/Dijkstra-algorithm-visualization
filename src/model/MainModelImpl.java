@@ -21,6 +21,7 @@ public class MainModelImpl implements MainModel{
 
     @Override
     public void addNode() {
+        ObservableModelImpl.getInstance().clearTurns();
         ObservableModelImpl.getInstance().setMessage("NEW NODE ADDED");
         ObservableModelImpl.getInstance().addNodeToInitialGraph();
         drawModel.getNodesXY();
@@ -29,6 +30,7 @@ public class MainModelImpl implements MainModel{
 
     @Override
     public void addEdge(int first, int second, int weight) {
+        ObservableModelImpl.getInstance().clearTurns();
         ObservableModelImpl.getInstance().addEdgeToInitialGraph(first,second,weight);
         drawModel.drawInitialGraph();
     }
