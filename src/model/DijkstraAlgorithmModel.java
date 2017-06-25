@@ -22,7 +22,6 @@ public class DijkstraAlgorithmModel {
             int i = minDistance(graph.nodes);
             graph.nodes.get(i).in = true;
             turns.add(copyGraphModel.graphCopy(graph));
-            printGraph(graph);
             for (int j = 0; j < graph.edges.size(); j++) {
                 if (i == graph.edges.get(j).first.index) {
                     graph.edges.get(j).color = true;

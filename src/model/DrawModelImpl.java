@@ -67,7 +67,7 @@ public class DrawModelImpl implements DrawModel{
         else {
             text = String.valueOf(node.dist);
         }
-        Text nodeWeight = new Text(node.x - nodeRadius *2 *cosa , node.y - nodeRadius*2 *sina, text);
+        Text nodeWeight = new Text(node.x - nodeRadius *1.7 *cosa , node.y - nodeRadius*1.7 *sina, text);
         graphPane.getChildren().add(nodeWeight);
     }
     private void drawNodeCircle(Node node){

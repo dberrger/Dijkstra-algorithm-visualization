@@ -12,6 +12,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ControllerPanel {
     private VBox controllerPane;
     private MainController mainController;
@@ -30,93 +33,90 @@ public class ControllerPanel {
         HBox Line5 = new HBox(10);
         HBox Line6 = new HBox(10);
 
-
         Label EditGraphLabel = new Label("EditGraph: ");
         Label StepsLabel = new Label("Steps: ");
         Label OthersLabel = new Label("Others: ");
 
+        String style = "-fx-font: 12 arial; -fx-base: #a8afa4;  ";
 
-        String style = "-fx-font: 12 arial; -fx-base: #C0C0C0; ";
+        Button AddEdgeButton = new Button("ADD EDGE");
+        Button AddNodeButton = new Button("ADD NODE");
+        Button OpenFileButton = new Button("OPEN FILE");
+        Button DeleteNodeButton = new Button("DELETE NODE");
+        Button EditEdgeButton = new Button("EDIT EDGE");  //удалить или изменить вес
+        Button ExitButton = new Button("EXIT");
+        Button ClearSceneButton = new Button("CLEAR SCENE");
+        Button NextStepButton = new Button("NEXT");
+        Button PrevStepButton = new Button("PREV");
+        Button SetStartPointButton = new Button("SET START");
+        Button MoveToBeginButton = new Button("TO BEGIN");
+        Button MoveToEndButton = new Button("TO END");
 
-        Button button0 = new Button("Add edge");
-        Button button1 = new Button("Add node");
-        Button button2 = new Button("Open ...");
-        Button button3 = new Button("Delete node ...");
-        Button button4 = new Button("Edit edge ...");  //удалить или изменить вес
-        Button button5 = new Button("Exit ...");
-        Button button6 = new Button("Description ");
-        Button button7 = new Button("NEXT");
-        Button button8 = new Button("RUN ALGORITHM");
-        Button button9 = new Button("NEXT STEP");
-        Button button10 = new Button("PREV STEP");
-        Button button11 = new Button("TO END");
+        Map<Integer, Button> ButtonMap = new HashMap<>();
 
-        //TODO POLNOSTIYU PEREDELAT VSE
-        button0.setMinSize(150,50);
-        button1.setMinSize(150,50);
-        button2.setMinSize(150,50);
-        button3.setMinSize(150,50);
-        button4.setMinSize(150,50);
-        button5.setMinSize(150,50);
-        button6.setMinSize(150,50);
-        button7.setMinSize(150,50);
-        button8.setMinSize(150,50);
-        button9.setMinSize(150,50);
-        button10.setMinSize(150,50);
-        button11.setMinSize(150,50);
+        ButtonMap.put(0,AddEdgeButton);
+        ButtonMap.put(1,AddNodeButton);
+        ButtonMap.put(2,OpenFileButton);
+        ButtonMap.put(3,DeleteNodeButton);
+        ButtonMap.put(4, EditEdgeButton);
+        ButtonMap.put(5,ExitButton);
+        ButtonMap.put(6,ClearSceneButton);
+        ButtonMap.put(7, NextStepButton);
+        ButtonMap.put(8, PrevStepButton);
+        ButtonMap.put(9, SetStartPointButton);
+        ButtonMap.put(10, MoveToBeginButton);
+        ButtonMap.put(11, MoveToEndButton);
 
-        button0.setStyle(style);
-        button1.setStyle(style);
-        button2.setStyle(style);
-        button3.setStyle(style);
-        button4.setStyle(style);
-        button5.setStyle(style);
-        button6.setStyle(style);
-        button7.setStyle(style);
-        button8.setStyle(style);
-        button9.setStyle(style);
-        button10.setStyle(style);
-        button11.setStyle(style);
+        for(int i=0;i<12;i++){
+            ButtonMap.get(i).setMinSize(150,50);
+            ButtonMap.get(i).setStyle(style);
+        }
 
-
-
-        Line1.getChildren().addAll(button0,button1);
-        Line2.getChildren().addAll(button2,button3);
-        Line3.getChildren().addAll(button4,button5);
-        Line4.getChildren().addAll(button6,button7);
-        Line5.getChildren().addAll(button8,button9);
-        Line6.getChildren().addAll(button10,button11);
+        Line1.getChildren().addAll(AddNodeButton,DeleteNodeButton);
+        Line2.getChildren().addAll(AddEdgeButton,EditEdgeButton);
+        Line3.getChildren().addAll(PrevStepButton,NextStepButton);
+        Line4.getChildren().addAll(MoveToBeginButton,MoveToEndButton);
+        Line5.getChildren().addAll(SetStartPointButton,ClearSceneButton);
+        Line6.getChildren().addAll(ExitButton,OpenFileButton);
 
         ButtonGroup1.getChildren().addAll(EditGraphLabel,Line1,Line2);
         ButtonGroup3.getChildren().addAll(StepsLabel,Line3,Line4);
         ButtonGroup3.getChildren().addAll(OthersLabel,Line5,Line6);
 
+        controllerPane.getChildren().addAll(ButtonGroup1,ButtonGroup2,ButtonGroup3);
 
 
-        button0.setOnAction(e-> AddingEdge());
 
-        button5.setOnAction(e-> System.exit(0));
-        button1.setOnAction(e->mainController.addNode());
-        button6.setOnAction(E-> {
+
+
+
+        AddNodeButton.setOnAction(e->mainController.addNode());
+        AddEdgeButton.setOnAction(e-> AddingEdge());
+        DeleteNodeButton.setOnAction(e-> DeleteNode());
+        EditEdgeButton.setOnAction(e-> EditEdge());
+
+        NextStepButton.setOnAction(e->mainController.nextTurn());
+        PrevStepButton.setOnAction(e->mainController.prevTurn());
+        //  MoveToBeginButton.setOnAction();
+        MoveToEndButton.setOnAction(e-> mainController.runAlgorithm());
+
+        // SetStartPointButton.setOnAction();
+        ClearSceneButton.setOnAction(e-> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Dijkstra Description");
-            alert.setHeaderText("32312312321321");
-            alert.setContentText(" Алгори́тм Де́йкстры (англ. Dijkstra's algorithm) — алгоритм на графах, \n" +
-                    "изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году.\n" +
-                    " Находит кратчайшие пути от одной из вершин графа до всех остальных. \n" +
-                    "Алгоритм работает только для графов без рёбер отрицательного веса");
+            alert.setHeaderText("ЗДЕСЬ ОЧИСТИТСЯ СЦЕНА ГРАФА");
+            alert.setContentText(
+                    " Алгори́тм Де́йкстры (англ. Dijkstra's algorithm) — алгоритм на графах, \n" +
+                            "изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году.\n" +
+                            " Находит кратчайшие пути от одной из вершин графа до всех остальных. \n" +
+                            "Алгоритм работает только для графов без рёбер отрицательного веса");
 
             alert.showAndWait();
 
 
 
         });
-        button4.setOnAction(e-> EditEdge());
-        button3.setOnAction(e-> DeleteNode());
-        button8.setOnAction(e-> mainController.runAlgorithm());
-        button9.setOnAction(e->mainController.nextTurn());
-        button10.setOnAction(e->mainController.prevTurn());
-        controllerPane.getChildren().addAll(ButtonGroup1,ButtonGroup2,ButtonGroup3);
+        ExitButton.setOnAction(e-> System.exit(0));
     }
 
     public void EditEdge(){
