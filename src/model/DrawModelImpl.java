@@ -26,16 +26,22 @@ public class DrawModelImpl implements DrawModel{
     //DRAW GRAPH ON THIS TURN
     @Override
     public void drawGraph() {
+        System.out.println(graphPane.getChildren().size());
         drawEdges(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
         drawNodes(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
+        System.out.println(graphPane.getChildren().size());
         ObservableModelImpl.getInstance().setGraph(graphPane);
+        System.out.println(graphPane.getChildren().size());
     }
     //DRAW INITIAL GRAPH
     @Override
     public void drawInitialGraph(){
+        System.out.println(graphPane.getChildren().size());
         drawNodes(ObservableModelImpl.getInstance().getInitialGraph().nodes);
         drawEdges(ObservableModelImpl.getInstance().getInitialGraph().nodes);
+        System.out.println(graphPane.getChildren().size());
         ObservableModelImpl.getInstance().setGraph(graphPane);
+        System.out.println(graphPane.getChildren().size());
     }
     //GET XY NODES TO INITIAL GRAPH
     @Override
@@ -48,7 +54,6 @@ public class DrawModelImpl implements DrawModel{
             float dy = (float) (graphRadius * Math.sin(angle));
             ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).x=graphPlaceX+dx;
             ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).y=graphPlaceY+dy;
-
         }
     }
     //DRAW NODE INDEX

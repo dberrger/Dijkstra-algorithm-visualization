@@ -10,7 +10,7 @@ import structures.Node;
 import java.util.ArrayList;
 
 public class ObservableModelImpl implements ObservableModel {
-    //MESSAGE AND GRAPHPANE TO SET
+    //MESSAGE AND GRAPH PANE TO SET
     private Pane graph;
     private String message;
     //CURRENT TURN
@@ -64,7 +64,7 @@ public class ObservableModelImpl implements ObservableModel {
     public void setShortestPaths(String shortestPaths){
         this.shortestPaths=shortestPaths;
     }
-    //METHOD TO GET SHOTEST PATHS STRING(USAGE IN CONTROLLER PANEL TO GET SHORTEST PATHS TO SCREEN
+    //METHOD TO GET SHORTEST PATHS STRING(USAGE IN CONTROLLER PANEL TO GET SHORTEST PATHS TO SCREEN
     public String getShortestPaths(){
         return this.shortestPaths;
     }
