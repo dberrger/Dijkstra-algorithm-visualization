@@ -10,7 +10,8 @@ public class Node {
     public boolean out;
     public boolean in;
     public ArrayList<Integer> prev;
+    public ArrayList<Edge> edges;
     public Node(int index){
-        this.index=index; prev = new ArrayList<>();
+        this.index=index; prev = new ArrayList<>(); edges = new ArrayList<Edge>();
     }
 }

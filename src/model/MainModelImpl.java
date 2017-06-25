@@ -53,7 +53,5 @@ public class MainModelImpl implements MainModel{
         dijkstraAlgorithmModel.setStartPoint(0);
         dijkstraAlgorithmModel.DijkstraAlgorithm();
         System.out.println(ObservableModelImpl.getInstance().getTurns().size());
-        int size = ObservableModelImpl.getInstance().getTurns().size();
-        ArrayList<Node> lastNodes = ObservableModelImpl.getInstance().getTurns().get(size-1).nodes;
     }
 }

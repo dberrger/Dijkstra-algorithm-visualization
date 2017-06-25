@@ -51,11 +51,7 @@ public class ObservableModelImpl implements ObservableModel {
         initialGraph.nodes.add(new Node(initialGraph.nodes.size()));
     }
     public void addEdgeToInitialGraph(int first, int second, int weight){
-        initialGraph.edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
-    }
-    public void clearInitialGraph(){
-        initialGraph.nodes.clear();
-        initialGraph.edges.clear();
+        initialGraph.nodes.get(first).edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
     }
     public ArrayList<Graph> getTurns(){
         return turns;

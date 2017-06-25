@@ -3,7 +3,6 @@ package model;
 import structures.Edge;
 import structures.Graph;
 import structures.Node;
-
 import java.util.ArrayList;
 
 public class CopyGraphModel {
@@ -16,6 +15,11 @@ public class CopyGraphModel {
         n.prev=nodeToCopy.prev;
         n.x=nodeToCopy.x;
         n.y=nodeToCopy.y;
+        ArrayList<Edge> edges = new ArrayList<>();
+        for (Edge e : nodeToCopy.edges){
+            edges.add(copyEdge(e));
+        }
+        n.edges=edges;
         return n;
     }
     public Edge copyEdge(Edge edgeToCopy){
@@ -30,11 +34,7 @@ public class CopyGraphModel {
         for (Node n: graphToCopy.nodes){
             nodes.add(copyNode(n));
         }
-        for (Edge e: graphToCopy.edges){
-            edges.add(copyEdge(e));
-        }
         graph.nodes=nodes;
-        graph.edges=edges;
         return graph;
     }
 }

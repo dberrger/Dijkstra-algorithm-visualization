@@ -23,23 +23,21 @@ public class DijkstraAlgorithmModel {
             int i = minDistance(graph.nodes);
             graph.nodes.get(i).in = true;
             turns.add(copyGraphModel.graphCopy(graph));
-            for (int j = 0; j < graph.edges.size(); j++) {
-                if (i == graph.edges.get(j).first.index) {
-                    graph.edges.get(j).color = true;
-                    if (!graph.nodes.get(graph.edges.get(j).second.index).out && graph.nodes.get(i).dist != Integer.MAX_VALUE) {
-                        if (graph.nodes.get(i).dist + graph.edges.get(j).weight == graph.nodes.get(graph.edges.get(j).second.index).dist) {
-                            graph.nodes.get(graph.edges.get(j).second.index).prev.add(i);
+            for (int j = 0; j < graph.nodes.get(i).edges.size(); j++) {
+                    graph.nodes.get(i).edges.get(j).color = true;
+                    if (!graph.nodes.get(graph.nodes.get(i).edges.get(j).second.index).out && graph.nodes.get(i).dist != Integer.MAX_VALUE) {
+                        if (graph.nodes.get(i).dist + graph.nodes.get(i).edges.get(j).weight == graph.nodes.get(graph.nodes.get(i).edges.get(j).second.index).dist) {
+                            graph.nodes.get(graph.nodes.get(i).edges.get(j).second.index).prev.add(i);
                         }
-                        if (graph.nodes.get(i).dist + graph.edges.get(j).weight < graph.nodes.get(graph.edges.get(j).second.index).dist) {
-                            graph.nodes.get(graph.edges.get(j).second.index).dist = graph.nodes.get(i).dist + graph.edges.get(j).weight;
-                            graph.nodes.get(graph.edges.get(j).second.index).prev.clear();
-                            graph.nodes.get(graph.edges.get(j).second.index).prev.add(i);
+                        if (graph.nodes.get(i).dist + graph.nodes.get(i).edges.get(j).weight < graph.nodes.get(graph.nodes.get(i).edges.get(j).second.index).dist) {
+                            graph.nodes.get(graph.nodes.get(i).edges.get(j).second.index).dist = graph.nodes.get(i).dist + graph.nodes.get(i).edges.get(j).weight;
+                            graph.nodes.get(graph.nodes.get(i).edges.get(j).second.index).prev.clear();
+                            graph.nodes.get(graph.nodes.get(i).edges.get(j).second.index).prev.add(i);
                         }
                     }
                     turns.add(copyGraphModel.graphCopy(graph));
                     printGraph(graph);
-                    graph.edges.get(j).color = false;
-                }
+                    graph.nodes.get(i).edges.get(j).color = false;
             }
             graph.nodes.get(i).in = false;
             graph.nodes.get(i).out = true;
@@ -47,9 +45,6 @@ public class DijkstraAlgorithmModel {
         }
         ObservableModelImpl.getInstance().setTurns(turns);
         getShortestPaths(graph.nodes);
-        for (int i=0;i<graph.nodes.size();i++){
-            System.out.println(graph.nodes.get(i).dist + " " + graph.nodes.get(i).prev.size());
-        }
     }
     public void initializeNodesForAlgorithm(){
         for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++) {
@@ -94,7 +89,7 @@ public class DijkstraAlgorithmModel {
         ArrayList<Integer> path = new ArrayList<>();
         for(int i = 0; i < nodes.size(); i++) {
             System.out.println ("SHORTEST PATHS TO NODE NUMBER " + (nodes.get(i).index));
-            shortestPathToNode(nodes,  nodes.get(i),path);
+            shortestPathToNode(nodes,  nodes.get(i),(ArrayList<Integer>) path.clone());
         }
     }
     private int minDistance(ArrayList<Node> nodes){

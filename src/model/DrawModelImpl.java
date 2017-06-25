@@ -30,12 +30,12 @@ public class DrawModelImpl implements DrawModel{
     @Override
     public void drawGraph() {
         drawNodes(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
-        drawEdges(ObservableModelImpl.getInstance().getCurrentTurnGraph().edges);
+        drawEdges(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
         ObservableModelImpl.getInstance().setGraph(graphPane);
     }
     public void drawInitialGraph(){
         drawNodes(ObservableModelImpl.getInstance().getInitialGraph().nodes);
-        drawEdges(ObservableModelImpl.getInstance().getInitialGraph().edges);
+        drawEdges(ObservableModelImpl.getInstance().getInitialGraph().nodes);
         ObservableModelImpl.getInstance().setGraph(graphPane);
     }
     @Override
@@ -90,10 +90,12 @@ public class DrawModelImpl implements DrawModel{
             drawNodeWeight(node);
         }
     }
-    private void drawEdges(ArrayList<Edge> edges){
-        for (Edge edge: edges){
-            drawEdge(edge);
-            drawEdgeWeight(edge);
+    private void drawEdges(ArrayList<Node> nodes){
+        for (Node node: nodes){
+            for (Edge edge:node.edges) {
+                drawEdge(edge);
+                drawEdgeWeight(edge);
+            }
         }
     }
     private void drawEdge(Edge edge){
