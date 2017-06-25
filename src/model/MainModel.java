@@ -10,5 +10,5 @@ public interface MainModel {
     //ADD EDGE
     void addEdge(int first, int second, int weight);
     //RUN ALGORITHM ON INITIAL GRAPH
-    void runAlgorithm();
+    void runAlgorithm(int i);
 }

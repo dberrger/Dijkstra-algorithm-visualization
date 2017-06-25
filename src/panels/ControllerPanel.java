@@ -1,6 +1,7 @@
 package panels;
 
 import controller.MainController;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -102,7 +103,7 @@ public class ControllerPanel {
         NextStepButton.setOnAction(e->mainController.nextTurn());
         PrevStepButton.setOnAction(e->mainController.prevTurn());
         //  MoveToBeginButton.setOnAction();
-        MoveToEndButton.setOnAction(e-> mainController.runAlgorithm());
+        MoveToEndButton.setOnAction(e-> startAlgorithm());
 
         // SetStartPointButton.setOnAction();
         ClearSceneButton.setOnAction(e-> {
@@ -118,6 +119,33 @@ public class ControllerPanel {
             alert.showAndWait();
         });
         ExitButton.setOnAction(e-> System.exit(0));
+    }
+    //START ALGORITHM
+    private void startAlgorithm(){
+        Label NodeToEdit = new Label("INPUT START POINT");
+        TextField fieldEdit = new TextField();
+        Button buttonOK = new Button("OK");
+        buttonOK.setPrefWidth(200);
+        TextField fieldEdit2 = new TextField();
+
+        fieldEdit.setPrefWidth(50);
+        fieldEdit2.setPrefWidth(50);
+
+        VBox root = new VBox();
+        HBox hBox = new HBox();
+        HBox hBox1 = new HBox();
+
+        hBox.getChildren().addAll(NodeToEdit, fieldEdit);
+        root.getChildren().addAll(hBox, hBox1, buttonOK);
+
+        Scene secondScene = new Scene(root, 200,150);
+        stage.setTitle("Start Algorithm");
+        stage.setScene(secondScene);
+        stage.show();
+        buttonOK.setOnAction((ActionEvent e) ->{
+            mainController.runAlgorithm(fieldEdit.getText());
+            stage.close();
+        });
     }
     //EDIT EDGE METHOD
     private void EditEdge(){

@@ -48,9 +48,9 @@ public class MainModelImpl implements MainModel{
     }
 
     @Override
-    public void runAlgorithm() {
+    public void runAlgorithm(int startPoint) {
         //SET START POINT
-        dijkstraAlgorithmModel.setStartPoint(0);
+        dijkstraAlgorithmModel.setStartPoint(startPoint);
         //RUN ALGORITHM ON INITIAL GRAPH
         dijkstraAlgorithmModel.DijkstraAlgorithm();
     }
