@@ -17,9 +17,11 @@ import java.util.Map;
 public class ControllerPanel {
     private VBox controllerPane;
     private MainController mainController;
+    private Stage stage;
     ControllerPanel(){
         mainController= new MainController();
         controllerPane = new VBox();
+        stage= new Stage();
 
         VBox ButtonGroup1 = new VBox(10);
         VBox ButtonGroup2 = new VBox(10);
@@ -115,7 +117,7 @@ public class ControllerPanel {
         ExitButton.setOnAction(e-> System.exit(0));
     }
 
-    public void EditEdge(){
+    private void EditEdge(){
 
         Label NodeToEdit = new Label("Node #1: ");
         Label NodeToEdit2 = new Label("Node #2: ");
@@ -136,13 +138,12 @@ public class ControllerPanel {
         root.getChildren().addAll(hBox, hBox1, buttonOKEdit);
 
         Scene secondScene = new Scene(root, 200,150);
-        Stage secondStage = new Stage();
-        secondStage.setTitle("EdgeEdit");
-        secondStage.setScene(secondScene);
-        secondStage.show();
+        stage.setTitle("EdgeEdit");
+        stage.setScene(secondScene);
+        stage.show();
     }
 
-    public void ShortestPaths(){
+    private void ShortestPaths(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ShortestPaths");
         alert.setHeaderText("ShortestPaths");
@@ -151,7 +152,7 @@ public class ControllerPanel {
         alert.showAndWait();
     }
 
-    public void AddingEdge() {
+    private void AddingEdge() {
         Label Node1 = new Label("Node #1: ");
         Label Node2 = new Label("Node #2: ");
         Label EdgeWeight = new Label("EWeight:  ");
@@ -174,10 +175,9 @@ public class ControllerPanel {
         root.getChildren().addAll(hBox, hBox1, hBox2, buttonOK);
 
         Scene secondScene = new Scene(root, 200,150);
-        Stage secondStage = new Stage();
-        secondStage.setTitle("hui");
-        secondStage.setScene(secondScene);
-        secondStage.show();
+        stage.setTitle("hui");
+        stage.setScene(secondScene);
+        stage.show();
         buttonOK.setOnAction(e->mainController.addEdge(pole1.getText(), pole2.getText(), pole3.getText()));
 
     }

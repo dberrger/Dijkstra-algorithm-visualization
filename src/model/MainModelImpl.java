@@ -21,6 +21,7 @@ public class MainModelImpl implements MainModel{
 
     @Override
     public void addNode() {
+        ObservableModelImpl.getInstance().setMessage("NEW NODE ADDED");
         ObservableModelImpl.getInstance().addNodeToInitialGraph();
         drawModel.getNodesXY();
         drawModel.drawInitialGraph();
@@ -34,6 +35,7 @@ public class MainModelImpl implements MainModel{
 
     @Override
     public void runAlgorithm() {
+        System.out.println("LETS RUN ALGORITHM");
         dijkstraAlgorithmModel.setStartPoint(0);
         dijkstraAlgorithmModel.DijkstraAlgorithm();
         System.out.println(ObservableModelImpl.getInstance().getTurns().size());

@@ -12,7 +12,6 @@ public class MainController {
     }
     public void addNode(){
         mainModel.addNode();
-        ObservableModelImpl.getInstance().setMessage("NEW NODE ADDED");
     }
     public void addEdge(String first, String second, String weight){
         try {

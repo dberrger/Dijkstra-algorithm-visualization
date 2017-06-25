@@ -104,7 +104,7 @@ public class DrawModelImpl implements DrawModel{
         Line line = new Line(edge.first.x + (nodeRadius+2*arrowRadius)*cosa,
                 edge.first.y + (nodeRadius+2*arrowRadius)*sina,
                 edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
-                edge.second.y - (nodeRadius+2*arrowRadius)*sina/3);
+                edge.second.y - (nodeRadius+2*arrowRadius)*sina);
         if (edge.color){
             System.out.println("COLOR EDGE " + edge.first.index + " " + edge.second.index + " " + edge.weight);
             line.setStroke(Color.GREEN);

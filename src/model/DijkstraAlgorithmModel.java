@@ -8,7 +8,6 @@ public class DijkstraAlgorithmModel {
     private int startPoint;
     private CopyGraphModel copyGraphModel;
     private String shortestPaths="";
-
     public void setStartPoint(int startPoint){
         this.startPoint=startPoint;
     }
@@ -16,7 +15,8 @@ public class DijkstraAlgorithmModel {
         copyGraphModel= new CopyGraphModel();
     }
     public void DijkstraAlgorithm(){
-        Graph graph = ObservableModelImpl.getInstance().getInitialGraph();
+        shortestPaths="";
+        Graph graph = copyGraphModel.graphCopy(ObservableModelImpl.getInstance().getInitialGraph());
         ArrayList<Graph> turns = new ArrayList<>();
         initializeNodesForAlgorithm();
         turns.add(copyGraphModel.graphCopy(graph));

@@ -12,16 +12,19 @@ import java.util.ArrayList;
 public class ObservableModelImpl implements ObservableModel {
     private Pane graph;
     private String message;
-    private GraphPanel graphPane;
-    private TextMessagePanel textMessagePane;
     private int currentTurn=0;
-    private Graph initialGraph= new Graph();
+    private Graph initialGraph;
     private ArrayList<Graph> turns;
     private String shortestPaths;
+
+    //PANELS TO REGISTER
+    private GraphPanel graphPane;
+    private TextMessagePanel textMessagePane;
 
     private static ObservableModelImpl instance;
 
     private ObservableModelImpl() {
+        initialGraph= new Graph();
         graph= new Pane();
         currentTurn=0;
         turns=new ArrayList<>();
@@ -55,10 +58,29 @@ public class ObservableModelImpl implements ObservableModel {
         return this.shortestPaths;
     }
     public void addNodeToInitialGraph(){
-        initialGraph.nodes.add(new Node(initialGraph.nodes.size()));
+        if (initialGraph.nodes.size()<=15) {
+            Node nodeToAdd = new Node(initialGraph.nodes.size());
+            nodeToAdd.dist=Integer.MAX_VALUE;
+            initialGraph.nodes.add(nodeToAdd);
+        } else{
+            setMessage("FOR DEMONSTRATION ONLY 15 NODES");
+        }
     }
     public void addEdgeToInitialGraph(int first, int second, int weight){
+        for (Edge e : initialGraph.nodes.get(first).edges){
+            if (e.first.index == first && e.second.index == second){
+                setMessage("THIS EDGE ALREADY EXISTS");
+                return;
+            }
+        }
+        if (first==second){
+            setMessage("THERE ARE NO CYCLES IN DIJKSTRA ALGORITHM");
+            return;
+        }
         initialGraph.nodes.get(first).edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
+    }
+    public void clearTurns(){
+        turns.clear();
     }
     public ArrayList<Graph> getTurns(){
         return turns;
