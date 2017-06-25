@@ -11,4 +11,10 @@ public interface MainModel {
     void addEdge(int first, int second, int weight);
     //RUN ALGORITHM ON INITIAL GRAPH
     void runAlgorithm(int i);
+    //TO LAST STEP
+    void toLastStep();
+    //TO FIRST STEP
+    void toFirstStep();
+    //CLEAR GRAPH
+    void clearGraph();
 }

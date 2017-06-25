@@ -53,5 +53,33 @@ public class MainModelImpl implements MainModel{
         dijkstraAlgorithmModel.setStartPoint(startPoint);
         //RUN ALGORITHM ON INITIAL GRAPH
         dijkstraAlgorithmModel.DijkstraAlgorithm();
+        ObservableModelImpl.getInstance().setMessage("ALGORITHM FINISHED WORK");
+    }
+
+    @Override
+    public void toLastStep() {
+        //SET TURN TO LAST STEP
+        ObservableModelImpl.getInstance().setTurn(ObservableModelImpl.getInstance().getTurns().size()-1);
+        //DRAW GRAPH
+        drawModel.drawGraph();
+        ObservableModelImpl.getInstance().setMessage("LAST STEP");
+    }
+
+    @Override
+    public void toFirstStep() {
+        //SET TURN TO FIRST STEP
+        ObservableModelImpl.getInstance().setTurn(0);
+        //DRAW GRAPH
+        drawModel.drawGraph();
+        ObservableModelImpl.getInstance().setMessage("FIRST STEP");
+    }
+
+    @Override
+    public void clearGraph() {
+        //CLEAR TURNS CLEAR INITIAL GRAPH
+        ObservableModelImpl.getInstance().clearTurns();
+        ObservableModelImpl.getInstance().clearInitialGraph();
+        drawModel.drawInitialGraph();
+        ObservableModelImpl.getInstance().setMessage("GRAPH CLEARED");
     }
 }

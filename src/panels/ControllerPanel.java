@@ -46,7 +46,7 @@ public class ControllerPanel {
         //BUTTONS
         Button AddEdgeButton = new Button("ADD EDGE");
         Button AddNodeButton = new Button("ADD NODE");
-        Button OpenFileButton = new Button("OPEN FILE");
+        Button DescriptionButton = new Button("DESCRIPTION");
         Button PrintShortestPaths = new Button("PRINT SHORTEST PATHS");
         Button EditEdgeButton = new Button("EDIT EDGE");  //удалить или изменить вес
         Button ExitButton = new Button("EXIT");
@@ -61,7 +61,7 @@ public class ControllerPanel {
 
         ButtonMap.put(0,AddEdgeButton);
         ButtonMap.put(1,AddNodeButton);
-        ButtonMap.put(2,OpenFileButton);
+        ButtonMap.put(2,DescriptionButton);
         ButtonMap.put(3,PrintShortestPaths);
         ButtonMap.put(4, EditEdgeButton);
         ButtonMap.put(5,ExitButton);
@@ -82,7 +82,7 @@ public class ControllerPanel {
         Line3.getChildren().addAll(PrevStepButton,NextStepButton);
         Line4.getChildren().addAll(MoveToBeginButton,MoveToEndButton);
         Line5.getChildren().addAll(SetStartPointButton,ClearSceneButton);
-        Line6.getChildren().addAll(ExitButton,OpenFileButton);
+        Line6.getChildren().addAll(ExitButton,DescriptionButton);
 
         ButtonGroup1.getChildren().addAll(EditGraphLabel,Line1,Line2);
         ButtonGroup3.getChildren().addAll(StepsLabel,Line3,Line4);
@@ -102,14 +102,10 @@ public class ControllerPanel {
 
         NextStepButton.setOnAction(e->mainController.nextTurn());
         PrevStepButton.setOnAction(e->mainController.prevTurn());
-        //  MoveToBeginButton.setOnAction();
-        MoveToEndButton.setOnAction(e-> startAlgorithm());
-
-        // SetStartPointButton.setOnAction();
-        ClearSceneButton.setOnAction(e-> {
+        MoveToEndButton.setOnAction(e-> mainController.toLastStep());
+        DescriptionButton.setOnAction(e-> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Dijkstra Description");
-            alert.setHeaderText("ЗДЕСЬ ОЧИСТИТСЯ СЦЕНА ГРАФА");
             alert.setContentText(
                     " Алгори́тм Де́йкстры (англ. Dijkstra's algorithm) — алгоритм на графах, \n" +
                             "изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году.\n" +
@@ -118,7 +114,11 @@ public class ControllerPanel {
 
             alert.showAndWait();
         });
+        ClearSceneButton.setOnAction(e-> mainController.clearGraph());
+        SetStartPointButton.setOnAction(e->startAlgorithm());
         ExitButton.setOnAction(e-> System.exit(0));
+        MoveToBeginButton.setOnAction(e->mainController.toFirstStep());
+        MoveToEndButton.setOnAction(e->mainController.toLastStep());
     }
     //START ALGORITHM
     private void startAlgorithm(){
@@ -182,7 +182,6 @@ public class ControllerPanel {
 
         alert.showAndWait();
     }
-
     private void AddingEdge() {
         Label Node1 = new Label("Node #1: ");
         Label Node2 = new Label("Node #2: ");

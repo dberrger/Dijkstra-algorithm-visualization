@@ -94,13 +94,22 @@ public class ObservableModelImpl implements ObservableModel {
         }
         initialGraph.nodes.get(first).edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
     }
+    //SET TURN
+    public void setTurn(int turn){
+        this.currentTurn=turn;
+    }
     //CLEAR TURNS METHOD IF SOMETHING IS CHANGED (NODE ADDED OR EDGE ADDED EDITED ETC.)
     public void clearTurns(){
         turns.clear();
+        currentTurn=0;
     }
     //SET TURNS (USAGE DIJKSTRA ALGORITHM MODEL)
     public void setTurns(ArrayList<Graph> turns){
         this.turns= turns;
+    }
+    //GET TURNS (USAGE MAIN MODEL)
+    public ArrayList<Graph> getTurns() {
+        return this.turns;
     }
     //GET GRAPH TO GRAPH PANEL USAGE GRAPH PANEL(OBSERVER)
     public Pane getGraph(){
@@ -109,6 +118,10 @@ public class ObservableModelImpl implements ObservableModel {
     //GET MESSAGE TO TEXT MESSAGE PANEL USAGE TEXT MESSAGE PANEL PANEL(OBSERVER)
     public String getMessage(){
         return message;
+    }
+    //CLEAR INITIAL GRAPH
+    public void clearInitialGraph(){
+        initialGraph.nodes.clear();
     }
     //GET CURRENT TURN GRAPH TO DRAW USAGE DRAW MODEL
     public Graph getCurrentTurnGraph(){

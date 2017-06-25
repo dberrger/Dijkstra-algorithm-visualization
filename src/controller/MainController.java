@@ -36,4 +36,15 @@ public class MainController {
     public void prevTurn(){
         mainModel.onPrevTurn();
     }
+
+    public void toLastStep() {
+        mainModel.toLastStep();
+    }
+    public void toFirstStep(){
+        mainModel.toFirstStep();
+    }
+
+    public void clearGraph() {
+        mainModel.clearGraph();
+    }
 }
