@@ -1,14 +1,11 @@
 package model;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import structures.Edge;
-import structures.Graph;
 import structures.Node;
 
 import java.util.ArrayList;
@@ -107,7 +104,7 @@ public class DrawModelImpl implements DrawModel{
         Line line = new Line(edge.first.x + (nodeRadius+2*arrowRadius)*cosa,
                 edge.first.y + (nodeRadius+2*arrowRadius)*sina,
                 edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
-                edge.second.y - (nodeRadius+2*arrowRadius)*sina);
+                edge.second.y - (nodeRadius+2*arrowRadius)*sina/3);
         if (edge.color){
             System.out.println("COLOR EDGE " + edge.first.index + " " + edge.second.index + " " + edge.weight);
             line.setStroke(Color.GREEN);

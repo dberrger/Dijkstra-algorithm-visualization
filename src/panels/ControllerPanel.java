@@ -178,7 +178,7 @@ public class ControllerPanel {
         secondStage.setTitle("hui");
         secondStage.setScene(secondScene);
         secondStage.show();
-        buttonOK.setOnAction(e->mainController.addEdge(Integer.parseInt(pole1.getText()), Integer.parseInt(pole2.getText()), Integer.parseInt(pole3.getText())));
+        buttonOK.setOnAction(e->mainController.addEdge(pole1.getText(), pole2.getText(), pole3.getText()));
 
     }
     public VBox getPanel(){

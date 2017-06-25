@@ -73,7 +73,13 @@ public class ObservableModelImpl implements ObservableModel {
         return message;
     }
     public Graph getCurrentTurnGraph(){
-        return turns.get(currentTurn);
+        try {
+            return turns.get(currentTurn);
+        }
+        catch (IndexOutOfBoundsException e){
+            setMessage("ADD GRAPH FIRST THEN RUN ALGORITHM");
+            return initialGraph;
+        }
     }
     public Graph getInitialGraph(){
         return initialGraph;
@@ -88,7 +94,7 @@ public class ObservableModelImpl implements ObservableModel {
             currentTurn--;
         }
     }
-    public int getTurn(){return currentTurn;}
+
     @Override
     public void registerTextPanel(TextMessagePanel textMessagePanel) {
         this.textMessagePane=textMessagePanel;

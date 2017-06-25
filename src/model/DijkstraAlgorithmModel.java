@@ -3,12 +3,12 @@ package model;
 import structures.Graph;
 import structures.Node;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DijkstraAlgorithmModel {
     private int startPoint;
     private CopyGraphModel copyGraphModel;
     private String shortestPaths="";
+
     public void setStartPoint(int startPoint){
         this.startPoint=startPoint;
     }
@@ -37,7 +37,6 @@ public class DijkstraAlgorithmModel {
                         }
                     }
                     turns.add(copyGraphModel.graphCopy(graph));
-                    printGraph(graph);
                     graph.nodes.get(i).edges.get(j).color = false;
             }
             graph.nodes.get(i).in = false;
@@ -48,7 +47,7 @@ public class DijkstraAlgorithmModel {
         getShortestPaths(graph.nodes);
         ObservableModelImpl.getInstance().setShortestPaths(shortestPaths);
     }
-    public void initializeNodesForAlgorithm(){
+    private void initializeNodesForAlgorithm(){
         for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++) {
             ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).out = false;
             ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).in = false;
@@ -60,13 +59,13 @@ public class DijkstraAlgorithmModel {
             }
         }
     }
-    public void printPath(ArrayList<Integer> path) {
+    private void printPath(ArrayList<Integer> path) {
         for (int i = 0; i < path.size(); i++) {
             shortestPaths+=path.get(i)+"<-";
         }
         shortestPaths+="\n";
     }
-    public void shortestPathToNode(ArrayList<Node> nodes, Node currentNode, ArrayList<Integer> path) {
+    private void shortestPathToNode(ArrayList<Node> nodes, Node currentNode, ArrayList<Integer> path) {
         if (currentNode.index == startPoint) {
             path.add(startPoint);
             printPath(path);
@@ -79,15 +78,7 @@ public class DijkstraAlgorithmModel {
         }
 
     }
-    public ArrayList<Integer> copyPath(ArrayList<Integer> pathToCopy){
-        ArrayList<Integer> pathNew = new ArrayList<>();
-        for (int i=0;i<pathToCopy.size();i++){
-            int val = pathToCopy.get(i);
-            pathNew.add(val);
-        }
-        return pathNew;
-    }
-    public void getShortestPaths(ArrayList<Node> nodes) {
+    private void getShortestPaths(ArrayList<Node> nodes) {
         ArrayList<Integer> path = new ArrayList<>();
         for(int i = 0; i < nodes.size(); i++) {
             shortestPaths+="SHORTEST PATHS TO NODE NUMBER " + (nodes.get(i).index) + "\n";
@@ -103,10 +94,5 @@ public class DijkstraAlgorithmModel {
                 index = i;
             }
         return index;
-    }
-    private void printGraph(Graph g){
-        for (Node n : g.nodes){
-            System.out.println(n.dist);
-        }
     }
 }

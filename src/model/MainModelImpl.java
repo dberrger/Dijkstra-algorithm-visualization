@@ -1,9 +1,5 @@
 package model;
 
-import structures.Node;
-
-import java.util.ArrayList;
-
 public class MainModelImpl implements MainModel{
     private DrawModelImpl drawModel;
     private DijkstraAlgorithmModel dijkstraAlgorithmModel;
@@ -15,19 +11,12 @@ public class MainModelImpl implements MainModel{
     public void onNextTurn() {
         ObservableModelImpl.getInstance().nextTurn();
         drawModel.drawGraph();
-        ObservableModelImpl.getInstance().setMessage("NEXT TURN");
     }
 
     @Override
     public void onPrevTurn() {
         ObservableModelImpl.getInstance().prevTurn();
         drawModel.drawGraph();
-        ObservableModelImpl.getInstance().setMessage("PREV TURN");
-    }
-
-    @Override
-    public void deleteNode() {
-
     }
 
     @Override
@@ -41,11 +30,6 @@ public class MainModelImpl implements MainModel{
     public void addEdge(int first, int second, int weight) {
         ObservableModelImpl.getInstance().addEdgeToInitialGraph(first,second,weight);
         drawModel.drawInitialGraph();
-    }
-
-    @Override
-    public void deleteEdge() {
-
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class CopyGraphModel {
     //TODO REPLACE WITH CLONEABLE
-    public Node copyNode(Node nodeToCopy){
+    private Node copyNode(Node nodeToCopy){
         Node n = new Node(nodeToCopy.index);
         n.in=nodeToCopy.in;
         n.out=nodeToCopy.out;
@@ -22,7 +22,7 @@ public class CopyGraphModel {
         n.edges=edges;
         return n;
     }
-    public Edge copyEdge(Edge edgeToCopy){
+    private Edge copyEdge(Edge edgeToCopy){
         Edge edge = new Edge(edgeToCopy.first, edgeToCopy.second, edgeToCopy.weight);
         edge.color=edgeToCopy.color;
         return edge;
@@ -30,7 +30,6 @@ public class CopyGraphModel {
     public Graph graphCopy(Graph graphToCopy){
         Graph graph = new Graph();
         ArrayList<Node> nodes = new ArrayList<>();
-        ArrayList<Edge> edges = new ArrayList<>();
         for (Node n: graphToCopy.nodes){
             nodes.add(copyNode(n));
         }
