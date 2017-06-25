@@ -1,16 +1,15 @@
 package panels;
 
 import controller.MainController;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.ObservableModelImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class ControllerPanel {
         Button AddEdgeButton = new Button("ADD EDGE");
         Button AddNodeButton = new Button("ADD NODE");
         Button OpenFileButton = new Button("OPEN FILE");
-        Button DeleteNodeButton = new Button("DELETE NODE");
+        Button PrintShortestPaths = new Button("PRINT SHORTEST PATHS");
         Button EditEdgeButton = new Button("EDIT EDGE");  //удалить или изменить вес
         Button ExitButton = new Button("EXIT");
         Button ClearSceneButton = new Button("CLEAR SCENE");
@@ -57,7 +56,7 @@ public class ControllerPanel {
         ButtonMap.put(0,AddEdgeButton);
         ButtonMap.put(1,AddNodeButton);
         ButtonMap.put(2,OpenFileButton);
-        ButtonMap.put(3,DeleteNodeButton);
+        ButtonMap.put(3,PrintShortestPaths);
         ButtonMap.put(4, EditEdgeButton);
         ButtonMap.put(5,ExitButton);
         ButtonMap.put(6,ClearSceneButton);
@@ -72,7 +71,7 @@ public class ControllerPanel {
             ButtonMap.get(i).setStyle(style);
         }
 
-        Line1.getChildren().addAll(AddNodeButton,DeleteNodeButton);
+        Line1.getChildren().addAll(AddNodeButton,PrintShortestPaths);
         Line2.getChildren().addAll(AddEdgeButton,EditEdgeButton);
         Line3.getChildren().addAll(PrevStepButton,NextStepButton);
         Line4.getChildren().addAll(MoveToBeginButton,MoveToEndButton);
@@ -92,7 +91,7 @@ public class ControllerPanel {
 
         AddNodeButton.setOnAction(e->mainController.addNode());
         AddEdgeButton.setOnAction(e-> AddingEdge());
-        DeleteNodeButton.setOnAction(e-> DeleteNode());
+        PrintShortestPaths.setOnAction(e-> ShortestPaths());
         EditEdgeButton.setOnAction(e-> EditEdge());
 
         NextStepButton.setOnAction(e->mainController.nextTurn());
@@ -112,9 +111,6 @@ public class ControllerPanel {
                             "Алгоритм работает только для графов без рёбер отрицательного веса");
 
             alert.showAndWait();
-
-
-
         });
         ExitButton.setOnAction(e-> System.exit(0));
     }
@@ -146,26 +142,13 @@ public class ControllerPanel {
         secondStage.show();
     }
 
-    public void DeleteNode(){
+    public void ShortestPaths(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("ShortestPaths");
+        alert.setHeaderText("ShortestPaths");
+        alert.setContentText(ObservableModelImpl.getInstance().getShortestPaths());
 
-        Label NodeToDelete = new Label("Enter Node to DELETE: ");
-        Button buttonOKDelete = new Button("OK");
-        buttonOKDelete.setPrefWidth(200);
-        TextField fieldDelete = new TextField();
-
-        fieldDelete.setPrefWidth(90);
-        VBox root = new VBox();
-        HBox hBoxDelete = new HBox();
-
-        hBoxDelete.getChildren().addAll(fieldDelete, buttonOKDelete);
-        root.getChildren().addAll(NodeToDelete, hBoxDelete);
-
-        Scene secondScene = new Scene(root, 200,150);
-        Stage secondStage = new Stage();
-        secondStage.setTitle("NodeDELETE");
-        secondStage.setScene(secondScene);
-        secondStage.show();
-
+        alert.showAndWait();
     }
 
     public void AddingEdge() {

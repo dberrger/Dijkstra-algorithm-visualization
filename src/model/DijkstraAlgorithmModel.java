@@ -8,6 +8,7 @@ import java.util.List;
 public class DijkstraAlgorithmModel {
     private int startPoint;
     private CopyGraphModel copyGraphModel;
+    private String shortestPaths="";
     public void setStartPoint(int startPoint){
         this.startPoint=startPoint;
     }
@@ -45,6 +46,7 @@ public class DijkstraAlgorithmModel {
         }
         ObservableModelImpl.getInstance().setTurns(turns);
         getShortestPaths(graph.nodes);
+        ObservableModelImpl.getInstance().setShortestPaths(shortestPaths);
     }
     public void initializeNodesForAlgorithm(){
         for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++) {
@@ -60,15 +62,15 @@ public class DijkstraAlgorithmModel {
     }
     public void printPath(ArrayList<Integer> path) {
         for (int i = 0; i < path.size(); i++) {
-            System.out.print(path.get(i) + "<-");
+            shortestPaths+=path.get(i)+"<-";
         }
+        shortestPaths+="\n";
     }
     public void shortestPathToNode(ArrayList<Node> nodes, Node currentNode, ArrayList<Integer> path) {
         if (currentNode.index == startPoint) {
             path.add(startPoint);
             printPath(path);
             path.clear();
-            System.out.print( "\n");
             return;
         }
         path.add(currentNode.index);
@@ -88,7 +90,7 @@ public class DijkstraAlgorithmModel {
     public void getShortestPaths(ArrayList<Node> nodes) {
         ArrayList<Integer> path = new ArrayList<>();
         for(int i = 0; i < nodes.size(); i++) {
-            System.out.println ("SHORTEST PATHS TO NODE NUMBER " + (nodes.get(i).index));
+            shortestPaths+="SHORTEST PATHS TO NODE NUMBER " + (nodes.get(i).index) + "\n";
             shortestPathToNode(nodes,  nodes.get(i),(ArrayList<Integer>) path.clone());
         }
     }

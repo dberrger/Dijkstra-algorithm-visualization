@@ -17,7 +17,7 @@ public class ObservableModelImpl implements ObservableModel {
     private int currentTurn=0;
     private Graph initialGraph= new Graph();
     private ArrayList<Graph> turns;
-
+    private String shortestPaths;
 
     private static ObservableModelImpl instance;
 
@@ -26,6 +26,7 @@ public class ObservableModelImpl implements ObservableModel {
         currentTurn=0;
         turns=new ArrayList<>();
         message="Deijkstra Algorithm Visualization";
+        shortestPaths="Run Algortithm First";
     }
     public static ObservableModelImpl getInstance() {
         ObservableModelImpl localInstance = instance;
@@ -46,6 +47,12 @@ public class ObservableModelImpl implements ObservableModel {
     public void setMessage(String message){
         this.message=message;
         notifyTextMessagePanel();
+    }
+    public void setShortestPaths(String shortestPaths){
+        this.shortestPaths=shortestPaths;
+    }
+    public String getShortestPaths(){
+        return this.shortestPaths;
     }
     public void addNodeToInitialGraph(){
         initialGraph.nodes.add(new Node(initialGraph.nodes.size()));
