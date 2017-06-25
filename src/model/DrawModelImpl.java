@@ -8,39 +8,42 @@ import javafx.scene.text.Text;
 import structures.Edge;
 import structures.Node;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class DrawModelImpl implements DrawModel{
+    //GRAPH PANE FOR TO MAKE DRAW METHODS
     private Pane graphPane;
     //TODO CONSTANTS
+    //GRAPH PLACE COORDINATES
     private int graphPlaceX=300;
     private int graphPlaceY=200;
-    private int graphRadius=150;
+    //RADIUS OF NODE
     private int nodeRadius=20;
-    //TODO ARROW WITH LINES
-    private int arrowRadius=5;
-
     public DrawModelImpl() {
+        //INITIALIZE GRAPH PANE MAKE GRAPH PANE CLASS TO MAKE DRAW METHODS
         graphPane= new Pane();
-
     }
+    //DRAW GRAPH ON THIS TURN
     @Override
     public void drawGraph() {
         drawEdges(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
         drawNodes(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
         ObservableModelImpl.getInstance().setGraph(graphPane);
     }
+    //DRAW INITIAL GRAPH
+    @Override
     public void drawInitialGraph(){
         drawNodes(ObservableModelImpl.getInstance().getInitialGraph().nodes);
         drawEdges(ObservableModelImpl.getInstance().getInitialGraph().nodes);
         ObservableModelImpl.getInstance().setGraph(graphPane);
     }
+    //GET XY NODES TO INITIAL GRAPH
     @Override
     public void getNodesXY() {
         for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++)
         {
             float angle = (float) (2.0 * 3.1415926 * i / ObservableModelImpl.getInstance().getInitialGraph().nodes.size());
+            int graphRadius = 150;
             float dx = (float) (graphRadius * Math.cos(angle));
             float dy = (float) (graphRadius * Math.sin(angle));
             ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).x=graphPlaceX+dx;
@@ -48,10 +51,12 @@ public class DrawModelImpl implements DrawModel{
 
         }
     }
+    //DRAW NODE INDEX
     private void drawNodeIndex(int index, double x, double y){
         Text nodeIndex = new Text(x-4, y+2, String.valueOf(index));
         graphPane.getChildren().add(nodeIndex);
     }
+    //DRAW NODE WEIGHT
     private void drawNodeWeight(Node node) {
         float b = graphPlaceX - node.x;
         float a = graphPlaceY - node.y;
@@ -69,14 +74,17 @@ public class DrawModelImpl implements DrawModel{
         Text nodeWeight = new Text(node.x - nodeRadius *1.7 *cosa , node.y - nodeRadius*1.7 *sina, text);
         graphPane.getChildren().add(nodeWeight);
     }
+    //DRAW NODE CIRCLE
     private void drawNodeCircle(Node node){
         Circle c = new Circle(node.x,node.y,nodeRadius);
         c.setFill(Color.WHITE);
         c.setStroke(Color.BLACK);
+        //IF NODE IS OUT THEN MAKE IT RED COLOR
         if (node.out){
             c.setStroke(Color.RED);
             c.setStrokeWidth(3);
         }
+        //IF NODE IS IN THEN MAKE IT GREEN COLOR
         if (node.in){
             c.setStroke(Color.GREEN);
             c.setStrokeWidth(3);
@@ -84,20 +92,25 @@ public class DrawModelImpl implements DrawModel{
         graphPane.getChildren().add(c);
         drawNodeIndex(node.index, c.getCenterX(), c.getCenterY());
     }
+    //DRAW NODES WITH ITERATION OF NODES ARRAY LIST
     private void drawNodes(ArrayList<Node> nodes){
         for (Node node: nodes){
             drawNodeCircle(node);
             drawNodeWeight(node);
         }
     }
+    //DRAW EDGES WITH ITERATION OF NODES THEN GET EDGES OF NODE
     private void drawEdges(ArrayList<Node> nodes){
+        //ITERATE NODES
         for (Node node: nodes){
+            //DRAW EDGES OF NODE
             for (Edge edge:node.edges) {
                 drawEdge(edge);
                 drawEdgeWeight(edge);
             }
         }
     }
+    //DRAW EDGE
     private void drawEdge(Edge edge){
         float b = edge.second.x - edge.first.x;
         float a = edge.second.y - edge.first.y;
@@ -132,15 +145,14 @@ public class DrawModelImpl implements DrawModel{
                 coordinateX - i*petal*Math.cos(angle+ostr),
                 coordinateY - i*petal*Math.sin(angle+ostr));
         if (edge.color){
-            //System.out.println("COLOR EDGE " + edge.first.index + " " + edge.second.index + " " + edge.weight);
             line1.setStroke(Color.GREEN);
             line1.setStrokeWidth(3);
             line2.setStroke(Color.GREEN);
             line2.setStrokeWidth(3);
         }
-
         graphPane.getChildren().addAll(line, line1, line2);
     }
+    //DRAW EDGE WEIGHT
     private void drawEdgeWeight(Edge edge){
         float x1 = edge.first.x;
         float y1 = edge.first.y;

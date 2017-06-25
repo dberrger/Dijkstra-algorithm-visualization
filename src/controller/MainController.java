@@ -5,7 +5,7 @@ import model.MainModelImpl;
 import model.ObservableModelImpl;
 
 public class MainController {
-    //TODO DELETE THIS
+    //TODO DELETE THIS IN LAST VARIANT
     private MainModel mainModel;
     public MainController(){
         mainModel = new MainModelImpl();

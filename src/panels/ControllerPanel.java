@@ -15,31 +15,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ControllerPanel {
+    //CONTROLLER PANEL VBox
     private VBox controllerPane;
     private MainController mainController;
+    //STAGE FOR DIALOG SCREENS
     private Stage stage;
     ControllerPanel(){
+        //INITIALIZING PRIVATE FIELD OBJECTS
         mainController= new MainController();
         controllerPane = new VBox();
         stage= new Stage();
-
+        //VBOX BUTTONS GROUPS
         VBox ButtonGroup1 = new VBox(10);
         VBox ButtonGroup2 = new VBox(10);
         VBox ButtonGroup3 = new VBox(10);
-
+        //LINES
         HBox Line1 = new HBox(10);
         HBox Line2 = new HBox(10);
         HBox Line3 = new HBox(10);
         HBox Line4 = new HBox(10);
         HBox Line5 = new HBox(10);
         HBox Line6 = new HBox(10);
-
+        //LABELS
         Label EditGraphLabel = new Label("EditGraph: ");
         Label StepsLabel = new Label("Steps: ");
         Label OthersLabel = new Label("Others: ");
-
+        //STYLE
         String style = "-fx-font: 12 arial; -fx-base: #a8afa4;  ";
-
+        //BUTTONS
         Button AddEdgeButton = new Button("ADD EDGE");
         Button AddNodeButton = new Button("ADD NODE");
         Button OpenFileButton = new Button("OPEN FILE");
@@ -90,7 +93,7 @@ public class ControllerPanel {
 
 
 
-
+        //ACTIONS OF BUTTONS
         AddNodeButton.setOnAction(e->mainController.addNode());
         AddEdgeButton.setOnAction(e-> AddingEdge());
         PrintShortestPaths.setOnAction(e-> ShortestPaths());
@@ -116,7 +119,7 @@ public class ControllerPanel {
         });
         ExitButton.setOnAction(e-> System.exit(0));
     }
-
+    //EDIT EDGE METHOD
     private void EditEdge(){
 
         Label NodeToEdit = new Label("Node #1: ");
@@ -142,7 +145,7 @@ public class ControllerPanel {
         stage.setScene(secondScene);
         stage.show();
     }
-
+    //SHORTEST PATHS METHOD
     private void ShortestPaths(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ShortestPaths");
@@ -181,6 +184,7 @@ public class ControllerPanel {
         buttonOK.setOnAction(e->mainController.addEdge(pole1.getText(), pole2.getText(), pole3.getText()));
 
     }
+    //RETURN THIS VBOX PANEL USAGE IN MAINPANEL
     public VBox getPanel(){
         return controllerPane;
     }
