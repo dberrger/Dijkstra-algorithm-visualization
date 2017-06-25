@@ -67,6 +67,7 @@ public class DrawModelImpl implements DrawModel{
         else {
             text = String.valueOf(node.dist);
         }
+        //TODO CHANGE
         Text nodeWeight = new Text(node.x - nodeRadius *1.7 *cosa , node.y - nodeRadius*1.7 *sina, text);
         graphPane.getChildren().add(nodeWeight);
     }
@@ -105,8 +106,8 @@ public class DrawModelImpl implements DrawModel{
                 edge.first.y + (nodeRadius+2*arrowRadius)*sina,
                 edge.second.x - (nodeRadius+2*arrowRadius)*cosa,
                 edge.second.y - (nodeRadius+2*arrowRadius)*sina);
-
         if (edge.color){
+            System.out.println("COLOR EDGE " + edge.first.index + " " + edge.second.index + " " + edge.weight);
             line.setStroke(Color.GREEN);
         }
         //TODO REPLACE WITH ARROW

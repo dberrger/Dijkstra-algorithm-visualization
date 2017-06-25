@@ -3,6 +3,7 @@ package model;
 import structures.Graph;
 import structures.Node;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DijkstraAlgorithmModel {
     private int startPoint;
@@ -39,16 +40,17 @@ public class DijkstraAlgorithmModel {
                     printGraph(graph);
                     graph.edges.get(j).color = false;
                 }
-                graph.nodes.get(i).in = false;
-                graph.nodes.get(i).out = true;
-                turns.add(copyGraphModel.graphCopy(graph));
             }
-            ObservableModelImpl.getInstance().setTurns(turns);
+            graph.nodes.get(i).in = false;
+            graph.nodes.get(i).out = true;
+            turns.add(copyGraphModel.graphCopy(graph));
+        }
+        ObservableModelImpl.getInstance().setTurns(turns);
+        getShortestPaths(graph.nodes);
+        for (int i=0;i<graph.nodes.size();i++){
+            System.out.println(graph.nodes.get(i).dist + " " + graph.nodes.get(i).prev.size());
         }
     }
-
-
-
     public void initializeNodesForAlgorithm(){
         for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++) {
             ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).out = false;
@@ -59,6 +61,40 @@ public class DijkstraAlgorithmModel {
             else {
                 ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).dist = Integer.MAX_VALUE;
             }
+        }
+    }
+    public void printPath(ArrayList<Integer> path) {
+        for (int i = 0; i < path.size(); i++) {
+            System.out.print(path.get(i) + "<-");
+        }
+    }
+    public void shortestPathToNode(ArrayList<Node> nodes, Node currentNode, ArrayList<Integer> path) {
+        if (currentNode.index == startPoint) {
+            path.add(startPoint);
+            printPath(path);
+            path.clear();
+            System.out.print( "\n");
+            return;
+        }
+        path.add(currentNode.index);
+        for (int i = 0; i < currentNode.prev.size(); i++) {
+            shortestPathToNode(nodes,nodes.get(currentNode.prev.get(i)), (ArrayList<Integer>) path.clone());
+        }
+
+    }
+    public ArrayList<Integer> copyPath(ArrayList<Integer> pathToCopy){
+        ArrayList<Integer> pathNew = new ArrayList<>();
+        for (int i=0;i<pathToCopy.size();i++){
+            int val = pathToCopy.get(i);
+            pathNew.add(val);
+        }
+        return pathNew;
+    }
+    public void getShortestPaths(ArrayList<Node> nodes) {
+        ArrayList<Integer> path = new ArrayList<>();
+        for(int i = 0; i < nodes.size(); i++) {
+            System.out.println ("SHORTEST PATHS TO NODE NUMBER " + (nodes.get(i).index));
+            shortestPathToNode(nodes,  nodes.get(i),path);
         }
     }
     private int minDistance(ArrayList<Node> nodes){
