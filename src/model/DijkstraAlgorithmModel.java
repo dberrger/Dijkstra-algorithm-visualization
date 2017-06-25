@@ -16,10 +16,10 @@ public class DijkstraAlgorithmModel {
     }
     public void DijkstraAlgorithm(){
         shortestPaths="";
-        ObservableModelImpl.getInstance().getInitialGraph().nodes.get(startPoint).dist=0;
+
+        initializeNodesForAlgorithm();
         Graph graph = copyGraphModel.graphCopy(ObservableModelImpl.getInstance().getInitialGraph());
         ArrayList<Graph> turns = new ArrayList<>();
-        initializeNodesForAlgorithm();
         turns.add(copyGraphModel.graphCopy(graph));
         for (int count = 0; count < graph.nodes.size() - 1; count++) {
             int i = minDistance(graph.nodes);
