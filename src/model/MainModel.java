@@ -11,6 +11,8 @@ public interface MainModel {
     void addNode();
     //ADD EDGE
     void addEdge(int first, int second, int weight);
+    //DELETE EDGE
+    void deleteEdge(int first, int second);
     //RUN ALGORITHM ON INITIAL GRAPH
     void runAlgorithm(int i);
     //TO LAST STEP

@@ -54,6 +54,18 @@ public class GraphModelImpl implements GraphModel {
         }
         initialGraph.nodes.get(first).edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
     }
+
+    @Override
+    public void deleteEdgeInInitialGraph(int first, int second) {
+        for (int i=0;i<initialGraph.nodes.get(first).edges.size();i++){
+            if (initialGraph.nodes.get(first).edges.get(i).second.index==second){
+                initialGraph.nodes.get(first).edges.remove(i);
+                return;
+            }
+        }
+        ObservableModelImpl.getInstance().setMessage("THIS EDGE IS NOT EXISTED");
+    }
+
     @Override
     public void setInitialGraph(Graph g){
         this.initialGraph=g;

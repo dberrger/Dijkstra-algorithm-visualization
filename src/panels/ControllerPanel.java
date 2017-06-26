@@ -63,7 +63,7 @@ public class ControllerPanel {
         Button AddNodeButton = new Button("ADD NODE");
         Button DescriptionButton = new Button("DESCRIPTION");
         Button PrintShortestPaths = new Button("SHORTEST PATHS");
-        Button EditEdgeButton = new Button("EDIT EDGE");  //удалить или изменить вес
+        Button DeleteEdgeButton = new Button("DELETE EDGE");
         Button ExitButton = new Button("EXIT");
         Button ClearSceneButton = new Button("CLEAR SCENE");
         Button NextStepButton = new Button("NEXT STEP");
@@ -81,7 +81,7 @@ public class ControllerPanel {
         //NOT ALGORITHM BUTTONS ARRAY LIST
         notAlgorithmButtons.add(AddEdgeButton);
         notAlgorithmButtons.add(AddNodeButton);
-        notAlgorithmButtons.add(EditEdgeButton);
+        notAlgorithmButtons.add(DeleteEdgeButton);
         notAlgorithmButtons.add(DescriptionButton);
         notAlgorithmButtons.add(ExitButton);
         notAlgorithmButtons.add(ClearSceneButton);
@@ -100,7 +100,7 @@ public class ControllerPanel {
             b.setDisable(true);
         }
         Line1.getChildren().addAll(AddNodeButton,SetStartPointButton);
-        Line2.getChildren().addAll(AddEdgeButton,EditEdgeButton);
+        Line2.getChildren().addAll(AddEdgeButton,DeleteEdgeButton);
         Line3.getChildren().addAll(PrevStepButton,NextStepButton);
         Line4.getChildren().addAll(MoveToBeginButton,MoveToEndButton);
         Line5.getChildren().addAll(PrintShortestPaths,ClearSceneButton);
@@ -122,7 +122,7 @@ public class ControllerPanel {
 
         AddEdgeButton.setOnAction(e-> AddingEdge());
         PrintShortestPaths.setOnAction(e-> ShortestPaths());
-        EditEdgeButton.setOnAction(e-> EditEdge());
+        DeleteEdgeButton.setOnAction(e-> DeleteEdge());
 
         NextStepButton.setOnAction(e->mainController.nextTurn());
         PrevStepButton.setOnAction(e->mainController.prevTurn());
@@ -179,7 +179,7 @@ public class ControllerPanel {
         hBox.getChildren().addAll(NodeToEdit, fieldEdit);
         root.getChildren().addAll(hBox, hBox1, buttonOK);
 
-        Scene secondScene = new Scene(root, 200,150);
+        Scene secondScene = new Scene(root);
         stage.setTitle("Start Algorithm");
         stage.setScene(secondScene);
         stage.show();
@@ -189,12 +189,12 @@ public class ControllerPanel {
         });
     }
     //EDIT EDGE METHOD
-    private void EditEdge(){
+    private void DeleteEdge(){
 
         Label NodeToEdit = new Label("Node #1: ");
         Label NodeToEdit2 = new Label("Node #2: ");
-        Button buttonOKEdit = new Button("OK");
-        buttonOKEdit.setPrefWidth(200);
+        Button buttonDeleteEdge = new Button("OK");
+        buttonDeleteEdge.setPrefWidth(200);
         TextField fieldEdit = new TextField();
         TextField fieldEdit2 = new TextField();
 
@@ -207,12 +207,17 @@ public class ControllerPanel {
 
         hBox.getChildren().addAll(NodeToEdit, fieldEdit);
         hBox1.getChildren().addAll(NodeToEdit2, fieldEdit2);
-        root.getChildren().addAll(hBox, hBox1, buttonOKEdit);
-
-        Scene secondScene = new Scene(root, 200,150);
-        stage.setTitle("EdgeEdit");
+        root.getChildren().addAll(hBox, hBox1, buttonDeleteEdge);
+        Scene secondScene = new Scene(root);
+        stage.setTitle("Delete Edge");
         stage.setScene(secondScene);
         stage.show();
+
+        buttonDeleteEdge.setOnAction(e->
+        {
+            mainController.deleteEdge(fieldEdit.getText(),fieldEdit2.getText());
+            stage.close();
+        });
     }
     //SHORTEST PATHS METHOD
     private void ShortestPaths(){
@@ -244,12 +249,14 @@ public class ControllerPanel {
         hBox2.getChildren().addAll(EdgeWeight, pole3);
         root.getChildren().addAll(hBox, hBox1, hBox2, buttonOK);
 
-        Scene secondScene = new Scene(root, 200,150);
-        stage.setTitle("hui");
+        Scene secondScene = new Scene(root);
+        stage.setTitle("Add Edge");
         stage.setScene(secondScene);
         stage.show();
-        buttonOK.setOnAction(e->mainController.addEdge(pole1.getText(), pole2.getText(), pole3.getText()));
-
+        buttonOK.setOnAction(e->{
+            mainController.addEdge(pole1.getText(), pole2.getText(), pole3.getText());
+            stage.close();
+        });
     }
     private void changeButtonsState(){
         if (this.algorithmState){
@@ -268,15 +275,13 @@ public class ControllerPanel {
             b.setDisable(false);
         }
     }
-    //RETURN THIS VBOX PANEL USAGE IN MAINPANEL
+    //RETURN THIS VBOX PANEL USAGE IN MAIN PANEL
     public VBox getPanel(){
         return controllerPane;
     }
 
     public void update() {
-        System.out.println("UPDATE COME HERE");
         this.algorithmState = ObservableModelImpl.getInstance().getAlgorithmState();
-        System.out.println(this.algorithmState);
         changeButtonsState();
     }
 }

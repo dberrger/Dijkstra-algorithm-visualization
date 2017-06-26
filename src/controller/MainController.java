@@ -57,4 +57,12 @@ public class MainController {
     public void clearGraph() {
         mainModel.clearGraph();
     }
+    public void deleteEdge(String first, String second){
+        try {
+            mainModel.deleteEdge(Integer.parseInt(first), Integer.parseInt(second));
+        }
+        catch (Exception e ){
+            ObservableModelImpl.getInstance().setMessage("ERROR WHILE DELETING EDGE \n INPUT CORRECT PARAMETERS");
+        }
+    }
 }

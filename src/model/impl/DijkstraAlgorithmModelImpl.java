@@ -24,6 +24,9 @@ public class DijkstraAlgorithmModelImpl implements DijkstraAlgorithmModel {
     //DIJKSTRA ALGORITHM MAKE turns.add to save STEP
     @Override
     public ArrayList<Graph> DijkstraAlgorithm(Graph graphForAlgorithm){
+        for(Node n: graphForAlgorithm.nodes){
+            n.prev.clear();
+        }
         shortestPaths="";
         initializeNodesForAlgorithm(graphForAlgorithm.nodes);
         Graph graph = copyGraphModel.graphCopy(graphForAlgorithm);
@@ -57,6 +60,7 @@ public class DijkstraAlgorithmModelImpl implements DijkstraAlgorithmModel {
         }
         return turns;
     }
+
     //INITIALIZING NODES FOR ALGORITHM ALL IN=FALSE OUT=FALSE FALSE DIST=INFINITY except start point
     private void initializeNodesForAlgorithm(ArrayList<Node> nodes){
         for (int i = 0; i < nodes.size(); i++) {
@@ -92,11 +96,11 @@ public class DijkstraAlgorithmModelImpl implements DijkstraAlgorithmModel {
     }
     //GET PATH OF EVERY NODE
     @Override
-    public String getShortestPaths(ArrayList<Node> nodes) {
+    public String getShortestPaths(Graph graph) {
         ArrayList<Integer> path = new ArrayList<>();
-        for(int i = 0; i < nodes.size(); i++) {
-            shortestPaths+="SHORTEST PATHS TO NODE NUMBER " + (nodes.get(i).index) + "\n";
-            shortestPathToNode(nodes,  nodes.get(i),(ArrayList<Integer>) path.clone());
+        for(int i = 0; i < graph.nodes.size(); i++) {
+            shortestPaths+="SHORTEST PATHS TO NODE NUMBER " + (graph.nodes.get(i).index) + "\n";
+            shortestPathToNode(graph.nodes,  graph.nodes.get(i),(ArrayList<Integer>) path.clone());
         }
         return shortestPaths;
     }

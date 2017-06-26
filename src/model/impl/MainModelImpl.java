@@ -1,6 +1,7 @@
 package model.impl;
 
 import model.MainModel;
+import structures.Node;
 
 import java.io.File;
 
@@ -52,12 +53,23 @@ public class MainModelImpl implements MainModel {
         //CLEAR TURNS
         graphModelImpl.clearTurns();
         //ADD EDGE TO INITIAL GRAPH
+        ObservableModelImpl.getInstance().setMessage("EDGE IS ADDED");
         graphModelImpl.addEdgeToInitialGraph(first,second,weight);
         ObservableModelImpl.getInstance().setAlgorithmState(false);
         //DRAW INITIAL GRAPH
         ObservableModelImpl.getInstance().setGraph( drawModel.drawGraph(graphModelImpl.getInitialGraph()));
     }
 
+    @Override
+    public void deleteEdge(int first, int second) {
+        graphModelImpl.clearTurns();
+        //DELETE EDGE IN INITIAL GRAPH
+        ObservableModelImpl.getInstance().setMessage("EDGE IS DELETED");
+        graphModelImpl.deleteEdgeInInitialGraph(first, second);
+        ObservableModelImpl.getInstance().setAlgorithmState(false);
+        //DRAW INITIAL GRAPH
+        ObservableModelImpl.getInstance().setGraph(drawModel.drawGraph(graphModelImpl.getInitialGraph()));
+    }
     @Override
     public void runAlgorithm(int startPoint) {
         try{
@@ -66,9 +78,13 @@ public class MainModelImpl implements MainModel {
                 dijkstraAlgorithmModel.setStartPoint(startPoint);
                 //RUN ALGORITHM ON INITIAL GRAPH
                 graphModelImpl.setTurns(dijkstraAlgorithmModel.DijkstraAlgorithm(graphModelImpl.getInitialGraph()));
+                for (Node n : graphModelImpl.getTurns().get(graphModelImpl.getTurns().size()-1).nodes){
+                    System.out.println(n.prev.size());
+                }
                 ObservableModelImpl.getInstance().
                         setShortestPaths(dijkstraAlgorithmModel.getShortestPaths(
-                                graphModelImpl.getTurns().get(graphModelImpl.getTurns().size() - 1).nodes));
+                                graphModelImpl.getTurns().get(graphModelImpl.getTurns().size() - 1)
+                        ));
                 ObservableModelImpl.getInstance().setAlgorithmState(true);
                 ObservableModelImpl.getInstance().setGraph(drawModel.drawGraph(graphModelImpl.getInitialGraph()));
                 ObservableModelImpl.getInstance().setMessage("ALGORITHM FINISHED WORK");
