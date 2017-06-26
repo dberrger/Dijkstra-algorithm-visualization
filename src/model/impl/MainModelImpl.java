@@ -35,6 +35,8 @@ public class MainModelImpl implements MainModel {
     public void addNode() {
         //CLEAR TURNS
         graphModelImpl.clearTurns();
+
+        ObservableModelImpl.getInstance().setAlgorithmState(false);
         //SET MESSAGE
         ObservableModelImpl.getInstance().setMessage("NEW NODE ADDED");
         //ADD NODE TO INITIAL GRAPH OF SINGLETON
@@ -51,6 +53,7 @@ public class MainModelImpl implements MainModel {
         graphModelImpl.clearTurns();
         //ADD EDGE TO INITIAL GRAPH
         graphModelImpl.addEdgeToInitialGraph(first,second,weight);
+        ObservableModelImpl.getInstance().setAlgorithmState(false);
         //DRAW INITIAL GRAPH
         ObservableModelImpl.getInstance().setGraph( drawModel.drawGraph(graphModelImpl.getInitialGraph()));
     }
