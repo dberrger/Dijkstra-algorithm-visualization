@@ -70,6 +70,7 @@ public class MainModelImpl implements MainModel {
                         setShortestPaths(dijkstraAlgorithmModel.getShortestPaths(
                                 graphModelImpl.getTurns().get(graphModelImpl.getTurns().size() - 1).nodes));
                 ObservableModelImpl.getInstance().setAlgorithmState(true);
+                ObservableModelImpl.getInstance().setGraph(drawModel.drawGraph(graphModelImpl.getInitialGraph()));
                 ObservableModelImpl.getInstance().setMessage("ALGORITHM FINISHED WORK");
             }
         }
