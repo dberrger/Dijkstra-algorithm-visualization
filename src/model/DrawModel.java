@@ -1,10 +1,11 @@
 package model;
 
+import javafx.scene.layout.Pane;
+import structures.Graph;
+
 public interface DrawModel {
     //DRAW GRAPH ON THIS TURN
-    void drawGraph();
-    //DRAW INITIAL GRAPH
-    void drawInitialGraph();
-    //GET XY COORDINATES TO INITIAL GRAPH NODES
-    void getNodesXY();
+    Pane drawGraph(Graph graph);
+    //GET XY NODES TO INITIAL GRAPH
+    void getNodesXY(Graph graph);
 }

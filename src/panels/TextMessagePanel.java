@@ -2,7 +2,7 @@ package panels;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import model.ObservableModelImpl;
+import model.impl.ObservableModelImpl;
 
 public class TextMessagePanel {
     private Pane textMessagePanel;

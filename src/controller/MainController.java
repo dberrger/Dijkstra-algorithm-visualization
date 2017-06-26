@@ -1,8 +1,8 @@
 package controller;
 
 import model.MainModel;
-import model.MainModelImpl;
-import model.ObservableModelImpl;
+import model.impl.MainModelImpl;
+import model.impl.ObservableModelImpl;
 
 public class MainController {
     //TODO DELETE THIS IN LAST VARIANT
@@ -27,7 +27,7 @@ public class MainController {
             mainModel.runAlgorithm(Integer.parseInt(s));
         }
         catch (Exception e ){
-            ObservableModelImpl.getInstance().setMessage("ERROR WHILE ADDING NEW EDGE \n INPUT CORRECT PARAMETERS");
+            ObservableModelImpl.getInstance().setMessage("ERROR WHILE TRYING START ALGORITHM \n INPUT CORRECT PARAMETERS");
         }
     }
     public void nextTurn(){

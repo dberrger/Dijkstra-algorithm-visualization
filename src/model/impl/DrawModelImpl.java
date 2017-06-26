@@ -1,16 +1,18 @@
-package model;
+package model.impl;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import model.DrawModel;
 import structures.Edge;
+import structures.Graph;
 import structures.Node;
 
 import java.util.ArrayList;
 
-public class DrawModelImpl implements DrawModel{
+public class DrawModelImpl implements DrawModel {
     //GRAPH PANE FOR TO MAKE DRAW METHODS
     private Pane graphPane;
     //TODO CONSTANTS
@@ -25,29 +27,23 @@ public class DrawModelImpl implements DrawModel{
     }
     //DRAW GRAPH ON THIS TURN
     @Override
-    public void drawGraph() {
-        drawEdges(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
-        drawNodes(ObservableModelImpl.getInstance().getCurrentTurnGraph().nodes);
-        ObservableModelImpl.getInstance().setGraph(graphPane);
+    public Pane drawGraph(Graph graph) {
+        drawEdges(graph.nodes);
+        drawNodes(graph.nodes);
+        return graphPane;
     }
-    //DRAW INITIAL GRAPH
-    @Override
-    public void drawInitialGraph(){
-        drawNodes(ObservableModelImpl.getInstance().getInitialGraph().nodes);
-        drawEdges(ObservableModelImpl.getInstance().getInitialGraph().nodes);
-        ObservableModelImpl.getInstance().setGraph(graphPane);
-    }
+
     //GET XY NODES TO INITIAL GRAPH
     @Override
-    public void getNodesXY() {
-        for (int i = 0; i < ObservableModelImpl.getInstance().getInitialGraph().nodes.size(); i++)
+    public void getNodesXY(Graph graph) {
+        for (int i = 0; i < graph.nodes.size(); i++)
         {
-            float angle = (float) (2.0 * 3.1415926 * i / ObservableModelImpl.getInstance().getInitialGraph().nodes.size());
+            float angle = (float) (2.0 * 3.1415926 * i / graph.nodes.size());
             int graphRadius = 150;
             float dx = (float) (graphRadius * Math.cos(angle));
             float dy = (float) (graphRadius * Math.sin(angle));
-            ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).x=graphPlaceX+dx;
-            ObservableModelImpl.getInstance().getInitialGraph().nodes.get(i).y=graphPlaceY+dy;
+            graph.nodes.get(i).x=graphPlaceX+dx;
+            graph.nodes.get(i).y=graphPlaceY+dy;
         }
     }
     //DRAW NODE INDEX
