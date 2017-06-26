@@ -10,6 +10,8 @@ public interface GraphModel {
 
     void addEdgeToInitialGraph(int first, int second, int weight);
 
+    void setInitialGraph(Graph g);
+
     //SET TURN
     void setTurn(int turn);
 

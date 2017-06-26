@@ -4,6 +4,8 @@ import model.MainModel;
 import model.impl.MainModelImpl;
 import model.impl.ObservableModelImpl;
 
+import java.io.File;
+
 public class MainController {
     //TODO DELETE THIS IN LAST VARIANT
     private MainModel mainModel;
@@ -29,6 +31,12 @@ public class MainController {
         catch (Exception e ){
             ObservableModelImpl.getInstance().setMessage("ERROR WHILE TRYING START ALGORITHM \n INPUT CORRECT PARAMETERS");
         }
+    }
+    public void fileRead(File file){
+        if (file!=null) {
+            mainModel.readGraphFromFile(file);
+        }
+
     }
     public void nextTurn(){
         mainModel.onNextTurn();

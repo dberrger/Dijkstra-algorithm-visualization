@@ -2,6 +2,8 @@ package model.impl;
 
 import model.MainModel;
 
+import java.io.File;
+
 public class MainModelImpl implements MainModel {
     //DRAW MODEL OBJECT
     private DrawModelImpl drawModel;
@@ -88,7 +90,16 @@ public class MainModelImpl implements MainModel {
         //CLEAR TURNS CLEAR INITIAL GRAPH
         graphModelImpl.clearTurns();
         graphModelImpl.clearInitialGraph();
-        drawModel.drawGraph(graphModelImpl.getInitialGraph());
+        ObservableModelImpl.getInstance().setGraph(
+                drawModel.drawGraph(graphModelImpl.getInitialGraph()));
         ObservableModelImpl.getInstance().setMessage("GRAPH CLEARED");
+    }
+
+    @Override
+    public void readGraphFromFile(File file) {
+        GraphActionsModelImpl g = new GraphActionsModelImpl();
+        graphModelImpl.clearInitialGraph();
+        graphModelImpl.setInitialGraph(g.graphCopy(g.readGraphFromFile(file)));
+        ObservableModelImpl.getInstance().setGraph(drawModel.drawGraph(graphModelImpl.getInitialGraph()));
     }
 }

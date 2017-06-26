@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+
 public interface MainModel {
     //MAKE NEXT TURN
     void onNextTurn();
@@ -17,4 +19,6 @@ public interface MainModel {
     void toFirstStep();
     //CLEAR GRAPH
     void clearGraph();
+    //READ GRAPH FROM FILE
+    void readGraphFromFile(File file);
 }

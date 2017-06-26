@@ -15,6 +15,7 @@ public class GraphModelImpl implements GraphModel {
     private Graph initialGraph;
     //TURNS WITH ARRAY LIST OF GRAPH OBJECT
     private ArrayList<Graph> turns;
+
     public GraphModelImpl(){
         currentTurn=0;
         initialGraph = new Graph();
@@ -47,6 +48,10 @@ public class GraphModelImpl implements GraphModel {
             return;
         }
         initialGraph.nodes.get(first).edges.add( new Edge(initialGraph.nodes.get(first),initialGraph.nodes.get(second),weight));
+    }
+    @Override
+    public void setInitialGraph(Graph g){
+        this.initialGraph=g;
     }
     //SET TURN
     @Override

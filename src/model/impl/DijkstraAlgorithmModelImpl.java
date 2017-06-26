@@ -9,7 +9,7 @@ public class DijkstraAlgorithmModelImpl implements DijkstraAlgorithmModel {
     //StartPoint
     private int startPoint;
     //ObjectForGraphCopy
-    private CopyGraphModelImpl copyGraphModel;
+    private GraphActionsModelImpl copyGraphModel;
     //String for ShortestPaths(to textMessagePanel)
     private String shortestPaths="";
     @Override
@@ -19,7 +19,7 @@ public class DijkstraAlgorithmModelImpl implements DijkstraAlgorithmModel {
     }
     public DijkstraAlgorithmModelImpl(){
         //Object for Graph copy
-        copyGraphModel= new CopyGraphModelImpl();
+        copyGraphModel= new GraphActionsModelImpl();
     }
     //DIJKSTRA ALGORITHM MAKE turns.add to save STEP
     @Override

@@ -9,9 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.impl.ObservableModelImpl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public class ControllerPanel {
     //CONTROLLER PANEL VBox
     private VBox controllerPane;
     private MainController mainController;
+    private FileChooser fileChooser;
     //STAGE FOR DIALOG SCREENS
     private Stage stage;
     ControllerPanel(){
@@ -26,6 +29,7 @@ public class ControllerPanel {
         mainController= new MainController();
         controllerPane = new VBox();
         stage= new Stage();
+        fileChooser = new FileChooser();
         //VBOX BUTTONS GROUPS
         VBox ButtonGroup1 = new VBox(10);
         VBox ButtonGroup2 = new VBox(10);
@@ -37,6 +41,7 @@ public class ControllerPanel {
         HBox Line4 = new HBox(10);
         HBox Line5 = new HBox(10);
         HBox Line6 = new HBox(10);
+        HBox line7 = new HBox(10);
         //LABELS
         Label EditGraphLabel = new Label("EditGraph: ");
         Label StepsLabel = new Label("Steps: ");
@@ -47,15 +52,16 @@ public class ControllerPanel {
         Button AddEdgeButton = new Button("ADD EDGE");
         Button AddNodeButton = new Button("ADD NODE");
         Button DescriptionButton = new Button("DESCRIPTION");
-        Button PrintShortestPaths = new Button("PRINT SHORTEST PATHS");
+        Button PrintShortestPaths = new Button("SHORTEST PATHS");
         Button EditEdgeButton = new Button("EDIT EDGE");  //удалить или изменить вес
         Button ExitButton = new Button("EXIT");
         Button ClearSceneButton = new Button("CLEAR SCENE");
-        Button NextStepButton = new Button("NEXT");
+        Button NextStepButton = new Button("NEXT STEP");
         Button PrevStepButton = new Button("PREV");
         Button SetStartPointButton = new Button("SET START");
         Button MoveToBeginButton = new Button("TO BEGIN");
         Button MoveToEndButton = new Button("TO END");
+        Button ReadFromFileButton = new Button("READ FROM FILE");
 
         Map<Integer, Button> ButtonMap = new HashMap<>();
 
@@ -71,8 +77,9 @@ public class ControllerPanel {
         ButtonMap.put(9, SetStartPointButton);
         ButtonMap.put(10, MoveToBeginButton);
         ButtonMap.put(11, MoveToEndButton);
+        ButtonMap.put(12, ReadFromFileButton);
 
-        for(int i=0;i<12;i++){
+        for(int i=0;i<ButtonMap.size();i++){
             ButtonMap.get(i).setMinSize(150,50);
             ButtonMap.get(i).setStyle(style);
         }
@@ -82,11 +89,12 @@ public class ControllerPanel {
         Line3.getChildren().addAll(PrevStepButton,NextStepButton);
         Line4.getChildren().addAll(MoveToBeginButton,MoveToEndButton);
         Line5.getChildren().addAll(SetStartPointButton,ClearSceneButton);
-        Line6.getChildren().addAll(ExitButton,DescriptionButton);
+        Line6.getChildren().addAll(DescriptionButton,ReadFromFileButton);
+        line7.getChildren().addAll(ExitButton);
 
         ButtonGroup1.getChildren().addAll(EditGraphLabel,Line1,Line2);
         ButtonGroup3.getChildren().addAll(StepsLabel,Line3,Line4);
-        ButtonGroup3.getChildren().addAll(OthersLabel,Line5,Line6);
+        ButtonGroup3.getChildren().addAll(OthersLabel,Line5,Line6,line7);
 
         controllerPane.getChildren().addAll(ButtonGroup1,ButtonGroup2,ButtonGroup3);
 
@@ -96,6 +104,7 @@ public class ControllerPanel {
 
         //ACTIONS OF BUTTONS
         AddNodeButton.setOnAction(e->mainController.addNode());
+
         AddEdgeButton.setOnAction(e-> AddingEdge());
         PrintShortestPaths.setOnAction(e-> ShortestPaths());
         EditEdgeButton.setOnAction(e-> EditEdge());
@@ -119,7 +128,17 @@ public class ControllerPanel {
         ExitButton.setOnAction(e-> System.exit(0));
         MoveToBeginButton.setOnAction(e->mainController.toFirstStep());
         MoveToEndButton.setOnAction(e->mainController.toLastStep());
+        ReadFromFileButton.setOnAction(e->readFromFile());
     }
+    //READ FROM FILE
+    private void readFromFile() {
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            mainController.fileRead(file);
+        }
+    }
+
     //START ALGORITHM
     private void startAlgorithm(){
         Label NodeToEdit = new Label("INPUT START POINT");
