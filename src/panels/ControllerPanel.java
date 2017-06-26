@@ -57,7 +57,8 @@ public class ControllerPanel {
         Label StepsLabel = new Label("Steps: ");
         Label OthersLabel = new Label("Others: ");
         //STYLE
-        String style = "-fx-font: 12 arial; -fx-base: #a8afa4;  ";
+        String style = "-fx-font: 12 arial; -fx-base: #a8afa4;   ";
+        String exitButtonStyle="-fx-background-color: #FF5C51 ";
         //BUTTONS
         Button AddEdgeButton = new Button("ADD EDGE");
         Button AddNodeButton = new Button("ADD NODE");
@@ -99,6 +100,7 @@ public class ControllerPanel {
         for (Button b: algorithmButtons){
             b.setDisable(true);
         }
+        ExitButton.setStyle(exitButtonStyle);
         Line1.getChildren().addAll(AddNodeButton,SetStartPointButton);
         Line2.getChildren().addAll(AddEdgeButton,DeleteEdgeButton);
         Line3.getChildren().addAll(PrevStepButton,NextStepButton);

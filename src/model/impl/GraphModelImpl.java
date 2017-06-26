@@ -41,10 +41,12 @@ public class GraphModelImpl implements GraphModel {
             return;
         }
         //CHECK THAT THIS EDGE IS NOT EXISTED
-        for (Edge e : initialGraph.nodes.get(first).edges){
-            if ((e.first.index == first && e.second.index == second) || (e.first.index==second && e.second.index==first)){
-                ObservableModelImpl.getInstance().setMessage("THIS EDGE ALREADY EXISTS");
-                return;
+        for (Node n: initialGraph.nodes){
+            for (Edge e : n.edges){
+                if ((e.first.index == first && e.second.index == second) || (e.first.index==second && e.second.index==first)){
+                    ObservableModelImpl.getInstance().setMessage("THIS EDGE ALREADY EXISTS");
+                    return;
+                }
             }
         }
         //CHECK THAT FIRST NODE != SECOND FOR EDGE TO (REMOVE THE POSSIBILITY OF CYCLES IN THE GRAPH)

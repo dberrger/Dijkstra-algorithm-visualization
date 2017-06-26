@@ -9,7 +9,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         MainPanel mainPanel = new MainPanel();
         Scene scene = new Scene(mainPanel.getPanel(), 950, 650) ;
-        primaryStage.setTitle("RABOTAEM") ;
+        primaryStage.setTitle("DIJKSTRA ALGORITHM") ;
         primaryStage.setScene(scene) ;
         primaryStage.show() ;
     }
