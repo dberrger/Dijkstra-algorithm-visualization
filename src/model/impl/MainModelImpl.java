@@ -99,7 +99,7 @@ public class MainModelImpl implements MainModel {
     public void readGraphFromFile(File file) {
         GraphActionsModelImpl g = new GraphActionsModelImpl();
         graphModelImpl.clearInitialGraph();
-        graphModelImpl.setInitialGraph(g.graphCopy(g.readGraphFromFile(file)));
+        graphModelImpl.setInitialGraph(g.readGraphFromFile(file));
         ObservableModelImpl.getInstance().setGraph(drawModel.drawGraph(graphModelImpl.getInitialGraph()));
     }
 }

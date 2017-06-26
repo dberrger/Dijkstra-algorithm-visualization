@@ -63,7 +63,7 @@ public class GraphActionsModelImpl implements GraphActionsModel {
                 }
             }
         }
-        return graphCopy(g);
+        return g;
     }
     private int[][] getGraphArrayFromFile(File f){
         int [][] graph = new int[0][0];
