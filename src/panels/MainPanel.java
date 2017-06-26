@@ -17,7 +17,7 @@ public class MainPanel {
         rootPane.setRight(controllerPanel.getPanel());
         rootPane.setBottom(textMessagePanel.getPanel());
         //STYLES
-        rootPane.setMargin(controllerPanel.getPanel(),new Insets(50.0,100.0,0.0,15.0));
+        rootPane.setMargin(controllerPanel.getPanel(),new Insets(0.0,100.0,0.0,15.0));
         rootPane.setMargin(rootPane.getBottom(),new Insets(50.0,0.0,50.0,100.0));
         rootPane.setPadding(new Insets(10,10,10,10));
     }

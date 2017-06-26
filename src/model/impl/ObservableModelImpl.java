@@ -2,6 +2,7 @@ package model.impl;
 
 import javafx.scene.layout.Pane;
 import model.ObservableModel;
+import panels.ControllerPanel;
 import panels.GraphPanel;
 import panels.TextMessagePanel;
 
@@ -12,18 +13,20 @@ public class ObservableModelImpl implements ObservableModel {
     private String message;
     //SHORTEST PATHS STRING
     private String shortestPaths;
-
+    private Boolean algorithmState;
     //PANELS TO REGISTER
     private GraphPanel graphPane;
     private TextMessagePanel textMessagePane;
+    private ControllerPanel controllerPanel;
 
     private static ObservableModelImpl instance;
     //PRIVATE SINGLETON CONSTRUCTOR
     private ObservableModelImpl() {
         //INITIALIZATION;
+        algorithmState =false;
         graph= new Pane();
-        message="Deijkstra Algorithm Visualization";
-        shortestPaths="Run Algortithm First";
+        message="";
+        shortestPaths="Run Algorithm First";
     }
     //STATIC GET INSTANCE METHOD WITH LAZY INITIALIZATION
     public static ObservableModelImpl getInstance() {
@@ -57,7 +60,6 @@ public class ObservableModelImpl implements ObservableModel {
         return this.shortestPaths;
     }
 
-
     //GET GRAPH TO GRAPH PANEL USAGE GRAPH PANEL(OBSERVER)
     public Pane getGraph(){
         return graph;
@@ -65,6 +67,15 @@ public class ObservableModelImpl implements ObservableModel {
     //GET MESSAGE TO TEXT MESSAGE PANEL USAGE TEXT MESSAGE PANEL PANEL(OBSERVER)
     public String getMessage(){
         return message;
+    }
+    //GET ALGORITHM STATE
+    public Boolean getAlgorithmState() {
+        return algorithmState;
+    }
+    //SET ALGORITHM STATE
+    public void setAlgorithmState(Boolean algorithmState) {
+        this.algorithmState = algorithmState;
+        notifyControllerPanel();
     }
     //REGISTER TEXT PANEL
     @Override
@@ -76,6 +87,12 @@ public class ObservableModelImpl implements ObservableModel {
     public void registerGraphPanel(GraphPanel graphPanel) {
         this.graphPane=graphPanel;
     }
+
+    @Override
+    public void registerControllerPanel(ControllerPanel controllerPanel) {
+        this.controllerPanel=controllerPanel;
+    }
+
     //NOTIFY TEXT MESSAGE PANEL (WHEN MESSAGE CHANGES -> textMessagePanel use getMessage of this class -> View Change)
     @Override
     public void notifyTextMessagePanel() {
@@ -85,6 +102,11 @@ public class ObservableModelImpl implements ObservableModel {
     @Override
     public void notifyGraphPanel() {
         this.graphPane.update();
+    }
+
+    @Override
+    public void notifyControllerPanel() {
+        this.controllerPanel.update();
     }
 
 }

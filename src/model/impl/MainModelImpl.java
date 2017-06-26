@@ -57,14 +57,22 @@ public class MainModelImpl implements MainModel {
 
     @Override
     public void runAlgorithm(int startPoint) {
-        //SET START POINT
-        dijkstraAlgorithmModel.setStartPoint(startPoint);
-        //RUN ALGORITHM ON INITIAL GRAPH
-        graphModelImpl.setTurns(dijkstraAlgorithmModel.DijkstraAlgorithm(graphModelImpl.getInitialGraph()));
-        ObservableModelImpl.getInstance().
-                setShortestPaths(dijkstraAlgorithmModel.getShortestPaths(
-                        graphModelImpl.getTurns().get(graphModelImpl.getTurns().size()-1).nodes));
-        ObservableModelImpl.getInstance().setMessage("ALGORITHM FINISHED WORK");
+        try{
+            if (graphModelImpl.getInitialGraph().nodes.get(startPoint)!=null) {
+                //SET START POINT
+                dijkstraAlgorithmModel.setStartPoint(startPoint);
+                //RUN ALGORITHM ON INITIAL GRAPH
+                graphModelImpl.setTurns(dijkstraAlgorithmModel.DijkstraAlgorithm(graphModelImpl.getInitialGraph()));
+                ObservableModelImpl.getInstance().
+                        setShortestPaths(dijkstraAlgorithmModel.getShortestPaths(
+                                graphModelImpl.getTurns().get(graphModelImpl.getTurns().size() - 1).nodes));
+                ObservableModelImpl.getInstance().setAlgorithmState(true);
+                ObservableModelImpl.getInstance().setMessage("ALGORITHM FINISHED WORK");
+            }
+        }
+        catch (IndexOutOfBoundsException e){
+            ObservableModelImpl.getInstance().setMessage("NO POINT WITH INDEX " + startPoint);
+        }
     }
 
     @Override
@@ -90,6 +98,7 @@ public class MainModelImpl implements MainModel {
         //CLEAR TURNS CLEAR INITIAL GRAPH
         graphModelImpl.clearTurns();
         graphModelImpl.clearInitialGraph();
+        ObservableModelImpl.getInstance().setAlgorithmState(false);
         ObservableModelImpl.getInstance().setGraph(
                 drawModel.drawGraph(graphModelImpl.getInitialGraph()));
         ObservableModelImpl.getInstance().setMessage("GRAPH CLEARED");
@@ -98,7 +107,9 @@ public class MainModelImpl implements MainModel {
     @Override
     public void readGraphFromFile(File file) {
         GraphActionsModelImpl g = new GraphActionsModelImpl();
+        graphModelImpl.clearTurns();
         graphModelImpl.clearInitialGraph();
+        ObservableModelImpl.getInstance().setAlgorithmState(false);
         graphModelImpl.setInitialGraph(g.readGraphFromFile(file));
         ObservableModelImpl.getInstance().setGraph(drawModel.drawGraph(graphModelImpl.getInitialGraph()));
     }

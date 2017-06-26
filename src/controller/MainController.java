@@ -26,11 +26,13 @@ public class MainController {
     public void runAlgorithm(String s)
     {
         try {
-            mainModel.runAlgorithm(Integer.parseInt(s));
+            Integer.parseInt(s);
         }
         catch (Exception e ){
-            ObservableModelImpl.getInstance().setMessage("ERROR WHILE TRYING START ALGORITHM \n INPUT CORRECT PARAMETERS");
+            ObservableModelImpl.getInstance().setMessage("ERROR WHILE PARSE START POINT \n INPUT COORECT PARAMETERS");
+            return;
         }
+        mainModel.runAlgorithm(Integer.parseInt(s));
     }
     public void fileRead(File file){
         if (file!=null) {

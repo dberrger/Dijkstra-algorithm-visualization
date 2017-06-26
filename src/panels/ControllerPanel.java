@@ -14,8 +14,7 @@ import javafx.stage.Stage;
 import model.impl.ObservableModelImpl;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class ControllerPanel {
     //CONTROLLER PANEL VBox
@@ -24,12 +23,23 @@ public class ControllerPanel {
     private FileChooser fileChooser;
     //STAGE FOR DIALOG SCREENS
     private Stage stage;
+    private Boolean algorithmState;
+    //ButtonListArrays
+    private ArrayList<Button> algorithmButtons;
+    private ArrayList<Button> notAlgorithmButtons;
     ControllerPanel(){
+
+        //REGISTER TO OBSERVABLE MODEL IMPL WHEN ALGORITHM STATE CHANGE -> THIS GET NOTIFY TO UPDATE
+        // -> THIS USE UPDATE METHOD -> GET NEW ALGORITHM STATE -> CHANGE BUTTON STATE -> VIEW CHANGE
+        ObservableModelImpl.getInstance().registerControllerPanel(this);
         //INITIALIZING PRIVATE FIELD OBJECTS
         mainController= new MainController();
         controllerPane = new VBox();
         stage= new Stage();
         fileChooser = new FileChooser();
+        algorithmButtons=new ArrayList<>();
+        notAlgorithmButtons= new ArrayList<>();
+        algorithmState=false;
         //VBOX BUTTONS GROUPS
         VBox ButtonGroup1 = new VBox(10);
         VBox ButtonGroup2 = new VBox(10);
@@ -62,33 +72,38 @@ public class ControllerPanel {
         Button MoveToBeginButton = new Button("TO BEGIN");
         Button MoveToEndButton = new Button("TO END");
         Button ReadFromFileButton = new Button("READ FROM FILE");
+        //ALGORITHM BUTTONS ARRAY LIST
+        algorithmButtons.add(PrintShortestPaths);
+        algorithmButtons.add(NextStepButton);
+        algorithmButtons.add(PrevStepButton);
+        algorithmButtons.add(MoveToBeginButton);
+        algorithmButtons.add(MoveToEndButton);
+        //NOT ALGORITHM BUTTONS ARRAY LIST
+        notAlgorithmButtons.add(AddEdgeButton);
+        notAlgorithmButtons.add(AddNodeButton);
+        notAlgorithmButtons.add(EditEdgeButton);
+        notAlgorithmButtons.add(DescriptionButton);
+        notAlgorithmButtons.add(ExitButton);
+        notAlgorithmButtons.add(ClearSceneButton);
+        notAlgorithmButtons.add(SetStartPointButton);
+        notAlgorithmButtons.add(ReadFromFileButton);
 
-        Map<Integer, Button> ButtonMap = new HashMap<>();
+        ArrayList<Button> allButtons = new ArrayList<>();
+        allButtons.addAll(algorithmButtons);
+        allButtons.addAll(notAlgorithmButtons);
 
-        ButtonMap.put(0,AddEdgeButton);
-        ButtonMap.put(1,AddNodeButton);
-        ButtonMap.put(2,DescriptionButton);
-        ButtonMap.put(3,PrintShortestPaths);
-        ButtonMap.put(4, EditEdgeButton);
-        ButtonMap.put(5,ExitButton);
-        ButtonMap.put(6,ClearSceneButton);
-        ButtonMap.put(7, NextStepButton);
-        ButtonMap.put(8, PrevStepButton);
-        ButtonMap.put(9, SetStartPointButton);
-        ButtonMap.put(10, MoveToBeginButton);
-        ButtonMap.put(11, MoveToEndButton);
-        ButtonMap.put(12, ReadFromFileButton);
-
-        for(int i=0;i<ButtonMap.size();i++){
-            ButtonMap.get(i).setMinSize(150,50);
-            ButtonMap.get(i).setStyle(style);
+        for (Button b: allButtons){
+            b.setMinSize(150,50);
+            b.setStyle(style);
         }
-
-        Line1.getChildren().addAll(AddNodeButton,PrintShortestPaths);
+        for (Button b: algorithmButtons){
+            b.setDisable(true);
+        }
+        Line1.getChildren().addAll(AddNodeButton,SetStartPointButton);
         Line2.getChildren().addAll(AddEdgeButton,EditEdgeButton);
         Line3.getChildren().addAll(PrevStepButton,NextStepButton);
         Line4.getChildren().addAll(MoveToBeginButton,MoveToEndButton);
-        Line5.getChildren().addAll(SetStartPointButton,ClearSceneButton);
+        Line5.getChildren().addAll(PrintShortestPaths,ClearSceneButton);
         Line6.getChildren().addAll(DescriptionButton,ReadFromFileButton);
         line7.getChildren().addAll(ExitButton);
 
@@ -112,24 +127,31 @@ public class ControllerPanel {
         NextStepButton.setOnAction(e->mainController.nextTurn());
         PrevStepButton.setOnAction(e->mainController.prevTurn());
         MoveToEndButton.setOnAction(e-> mainController.toLastStep());
-        DescriptionButton.setOnAction(e-> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Dijkstra Description");
-            alert.setContentText(
-                    " Алгори́тм Де́йкстры (англ. Dijkstra's algorithm) — алгоритм на графах, \n" +
-                            "изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году.\n" +
-                            " Находит кратчайшие пути от одной из вершин графа до всех остальных. \n" +
-                            "Алгоритм работает только для графов без рёбер отрицательного веса");
-
-            alert.showAndWait();
-        });
+        DescriptionButton.setOnAction(e-> ViewDescription());
         ClearSceneButton.setOnAction(e-> mainController.clearGraph());
         SetStartPointButton.setOnAction(e->startAlgorithm());
         ExitButton.setOnAction(e-> System.exit(0));
         MoveToBeginButton.setOnAction(e->mainController.toFirstStep());
         MoveToEndButton.setOnAction(e->mainController.toLastStep());
         ReadFromFileButton.setOnAction(e->readFromFile());
+
+        changeButtonsState();
     }
+
+    private void ViewDescription() {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Dijkstra Description");
+        alert.setHeaderText("Dijkstra Algorithm Description");
+        alert.setContentText(
+                " Алгори́тм Де́йкстры (англ. Dijkstra's algorithm) — алгоритм на графах, \n" +
+                        "изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году.\n" +
+                        " Находит кратчайшие пути от одной из вершин графа до всех остальных. \n" +
+                        "Алгоритм работает только для графов без рёбер отрицательного веса");
+
+        alert.showAndWait();
+    }
+
     //READ FROM FILE
     private void readFromFile() {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
@@ -198,7 +220,6 @@ public class ControllerPanel {
         alert.setTitle("ShortestPaths");
         alert.setHeaderText("ShortestPaths");
         alert.setContentText(ObservableModelImpl.getInstance().getShortestPaths());
-
         alert.showAndWait();
     }
     private void AddingEdge() {
@@ -230,8 +251,32 @@ public class ControllerPanel {
         buttonOK.setOnAction(e->mainController.addEdge(pole1.getText(), pole2.getText(), pole3.getText()));
 
     }
+    private void changeButtonsState(){
+        if (this.algorithmState){
+            unblockAlgorithmButtons();
+        } else {
+            blockAlgorithmButtons();
+        }
+    }
+    private void blockAlgorithmButtons(){
+        for (Button b: algorithmButtons){
+            b.setDisable(true);
+        }
+    }
+    private void unblockAlgorithmButtons(){
+        for (Button b: algorithmButtons){
+            b.setDisable(false);
+        }
+    }
     //RETURN THIS VBOX PANEL USAGE IN MAINPANEL
     public VBox getPanel(){
         return controllerPane;
+    }
+
+    public void update() {
+        System.out.println("UPDATE COME HERE");
+        this.algorithmState = ObservableModelImpl.getInstance().getAlgorithmState();
+        System.out.println(this.algorithmState);
+        changeButtonsState();
     }
 }
