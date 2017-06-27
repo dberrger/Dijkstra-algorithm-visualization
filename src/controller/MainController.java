@@ -7,7 +7,6 @@ import model.impl.ObservableModelImpl;
 import java.io.File;
 
 public class MainController {
-    //TODO DELETE THIS IN LAST VARIANT
     private MainModel mainModel;
     public MainController(){
         mainModel = new MainModelImpl();

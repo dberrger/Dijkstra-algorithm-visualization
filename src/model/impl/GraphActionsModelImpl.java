@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GraphActionsModelImpl implements GraphActionsModel {
-    //TODO REPLACE WITH CLONEABLE
     //FULL COPY NODE
     private Node copyNode(Node nodeToCopy){
         Node n = new Node(nodeToCopy.index);

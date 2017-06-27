@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class DrawModelImpl implements DrawModel {
     //GRAPH PANE FOR TO MAKE DRAW METHODS
     private Pane graphPane;
-    //TODO CONSTANTS
     //GRAPH PLACE COORDINATES
     private int graphPlaceX=300;
     private int graphPlaceY=200;
@@ -65,7 +64,6 @@ public class DrawModelImpl implements DrawModel {
         else {
             text = String.valueOf(node.dist);
         }
-        //TODO CHANGE
         Text nodeWeight = new Text(node.x - nodeRadius *1.7 *cosa , node.y - nodeRadius*1.7 *sina, text);
         graphPane.getChildren().add(nodeWeight);
     }
@@ -120,7 +118,6 @@ public class DrawModelImpl implements DrawModel {
             line.setStroke(Color.GREEN);
             line.setStrokeWidth(3);
         }
-        //TODO REPLACE WITH ARROW
 
         //стрелочки
         double ostr = 0.25; //острота стрелки

@@ -36,8 +36,8 @@ public class GraphModelImpl implements GraphModel {
     @Override
     public void addEdgeToInitialGraph(int first, int second, int weight){
         //CHECK <0
-        if (weight<0){
-            ObservableModelImpl.getInstance().setMessage("EDGE WEIGHT CANNOT BE NEGATIVE");
+        if (weight<=0){
+            ObservableModelImpl.getInstance().setMessage("EDGE WEIGHT CANNOT BE NEGATIVE OR EQUAL ZERO");
             return;
         }
         //CHECK THAT THIS EDGE IS NOT EXISTED
